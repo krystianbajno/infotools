@@ -1,0 +1,26 @@
+# Threat Intelligence Search Tool - Development Dependencies
+# Generated for infotools project
+
+# Core runtime dependencies
+-r requirements.txt
+
+# Development and testing tools
+pytest>=7.0.0
+pytest-asyncio>=0.21.0     # For testing async functions
+pytest-cov>=4.0.0          # Coverage reporting
+
+# Code quality tools  
+black>=23.0.0               # Code formatting
+flake8>=6.0.0              # Linting
+mypy>=1.0.0                # Type checking
+
+# Environment management (optional alternative to custom .env loader)
+python-dotenv>=1.0.0
+
+# Documentation tools (optional)
+# sphinx>=6.0.0
+# sphinx-rtd-theme>=1.0.0
+
+# Security scanning (optional)
+# bandit>=1.7.0
+# safety>=2.0.0 

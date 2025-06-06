@@ -1,0 +1,628 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Threat Intelligence Report - example.com</title>
+        
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .summary h2 {
+            margin: 0 0 20px 0;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .summary-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+        }
+        .summary-item .label {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .summary-item .value {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        .source-section {
+            background: white;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .source-header {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .source-header h3 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .source-stats {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        .results-container {
+            padding: 0;
+        }
+        .result-item {
+            border-bottom: 1px solid #eee;
+            padding: 25px;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .result-index {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        .result-date {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .result-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        .result-content {
+            color: #555;
+            line-height: 1.6;
+        }
+        .result-meta {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .meta-item {
+            display: inline-block;
+            background: #ecf0f1;
+            padding: 5px 10px;
+            margin: 2px 5px 2px 0;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: #555;
+        }
+        .meta-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .link {
+            color: #3498db;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin: 2px;
+        }
+        .badge-risk-high { background: #e74c3c; color: white; }
+        .badge-risk-medium { background: #f39c12; color: white; }
+        .badge-risk-low { background: #95a5a6; color: white; }
+        .badge-proxy { background: #e74c3c; color: white; }
+        .badge-hosting { background: #3498db; color: white; }
+        .badge-mobile { background: #2ecc71; color: white; }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        .errors-section {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .errors-section h3 {
+            color: #c53030;
+            margin: 0 0 15px 0;
+        }
+        .error-item {
+            background: white;
+            border-left: 4px solid #e53e3e;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            border-top: 1px solid #eee;
+            margin-top: 50px;
+        }
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .header h1 { font-size: 2em; }
+            .summary-grid { grid-template-columns: 1fr; }
+            .result-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+    
+    </head>
+    <body>
+        <div class="header">
+            <h1>🔍 Threat Intelligence Report</h1>
+            <div class="subtitle">Search Results for: "example.com"</div>
+            <div class="subtitle">Generated: 2025-06-06 17:02:03 UTC</div>
+        </div>
+        
+        <div class="summary">
+            <h2>Executive Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="label">Total Results</div>
+                    <div class="value">20</div>
+                </div>
+                <div class="summary-item">
+                    <div class="label">Sources Searched</div>
+                    <div class="value">2</div>
+                </div>
+                <div class="summary-item">
+                    <div class="label">Search Term</div>
+                    <div class="value">example.com</div>
+                </div>
+                <div class="summary-item">
+                    <div class="label">Report Date</div>
+                    <div class="value">2025-06-06</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="source-section">
+            <div class="source-header">
+                <h3>🔍 Shodan InternetDB - IP Intelligence</h3>
+                <div class="source-stats">10 IP addresses analyzed</div>
+            </div>
+            <div class="results-container">
+    
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#1</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">23.215.0.136</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Open Ports:</strong> 80, 443<br>
+                        <strong>Hostnames:</strong> a23-215-0-136.deploy.static.akamaitechnologies.com, a248.e.akamai.net<br>
+                        
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-medium">cdn</span>
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#2</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">96.7.128.198</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Open Ports:</strong> 80, 443<br>
+                        <strong>Hostnames:</strong> a96-7-128-198.deploy.static.akamaitechnologies.com, a248.e.akamai.net<br>
+                        
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-medium">cdn</span>
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#3</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">96.7.128.175</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Open Ports:</strong> 80, 443<br>
+                        <strong>Hostnames:</strong> a96-7-128-175.deploy.static.akamaitechnologies.com, a248.e.akamai.net<br>
+                        
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-medium">cdn</span>
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#4</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">23.215.0.138</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Open Ports:</strong> 80, 443<br>
+                        <strong>Hostnames:</strong> a248.e.akamai.net, a23-215-0-138.deploy.static.akamaitechnologies.com<br>
+                        
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-medium">cdn</span>
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#5</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">23.192.228.80</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Open Ports:</strong> 80, 443<br>
+                        <strong>Hostnames:</strong> a248.e.akamai.net, a23-192-228-80.deploy.static.akamaitechnologies.com<br>
+                        
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-medium">cdn</span>
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#6</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">23.192.228.84</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Open Ports:</strong> 80, 443<br>
+                        <strong>Hostnames:</strong> a248.e.akamai.net, a23-192-228-84.deploy.static.akamaitechnologies.com<br>
+                        
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-medium">cdn</span>
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#7</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">::ffff:23.215.0.136</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        
+                        
+                        
+                    </div>
+                    <div class="result-meta">
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#8</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">::ffff:96.7.128.175</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        
+                        
+                        
+                    </div>
+                    <div class="result-meta">
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#9</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">::ffff:23.215.0.138</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        
+                        
+                        
+                    </div>
+                    <div class="result-meta">
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#10</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">::ffff:96.7.128.198</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        
+                        
+                        
+                    </div>
+                    <div class="result-meta">
+                        
+                        
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    
+        <div class="source-section">
+            <div class="source-header">
+                <h3>🌍 IP Geolocation & Proxy Detection</h3>
+                <div class="source-stats">10 IP addresses geolocated</div>
+            </div>
+            <div class="results-container">
+    
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#1</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">::ffff:23.215.0.138</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Location:</strong> Ashburn, United States<br>
+                        <strong>ISP:</strong> 
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-low">Risk: LOW</span>
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#2</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">::ffff:96.7.128.175</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Location:</strong> El Segundo, United States<br>
+                        <strong>ISP:</strong> 
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-low">Risk: LOW</span>
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#3</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">23.192.228.84</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Location:</strong> San Jose, United States<br>
+                        <strong>ISP:</strong> 
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-low">Risk: LOW</span>
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#4</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">96.7.128.198</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Location:</strong> El Segundo, United States<br>
+                        <strong>ISP:</strong> Akamai International B.V.
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-low">Risk: LOW</span>
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#5</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">23.215.0.136</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Location:</strong> Ashburn, United States<br>
+                        <strong>ISP:</strong> Akamai International B.V.
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-low">Risk: LOW</span>
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#6</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">96.7.128.175</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Location:</strong> El Segundo, United States<br>
+                        <strong>ISP:</strong> 
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-low">Risk: LOW</span>
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#7</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">::ffff:23.215.0.136</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Location:</strong> Ashburn, United States<br>
+                        <strong>ISP:</strong> Akamai International B.V.
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-low">Risk: LOW</span>
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#8</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">23.215.0.138</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Location:</strong> Ashburn, United States<br>
+                        <strong>ISP:</strong> Akamai International B.V.
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-low">Risk: LOW</span>
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#9</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">23.192.228.80</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Location:</strong> San Jose, United States<br>
+                        <strong>ISP:</strong> Akamai International B.V.
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-low">Risk: LOW</span>
+                        
+                        
+                    </div>
+                </div>
+        
+                <div class="result-item">
+                    <div class="result-header">
+                        <span class="result-index">#10</span>
+                        <span class="result-date">Current</span>
+                    </div>
+                    <div class="result-title">::ffff:96.7.128.198</div>
+                    <div class="result-content"><strong>🌐 Resolved from domain:</strong> example.com</div>
+                    <div class="result-content">
+                        <strong>Location:</strong> El Segundo, United States<br>
+                        <strong>ISP:</strong> Akamai International B.V.
+                    </div>
+                    <div class="result-meta">
+                        <span class="badge badge-risk-low">Risk: LOW</span>
+                        
+                        
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    
+        <div class="footer">
+            Generated by IntelBay Threat Intelligence Platform<br>
+            <small>This report contains aggregated intelligence from multiple open sources</small>
+        </div>
+    </body>
+    </html>
+    

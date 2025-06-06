@@ -1,0 +1,7 @@
+# STIX/TAXII Sources Configuration  
+# Format: name|url|type|api_key_required
+# Types: taxii, misp, stix_json
+# Lines starting with # are comments
+
+# Working TAXII 2.1 Servers (Verified)
+MITRE ATT&CK|https://attack-taxii.mitre.org|taxii|false 

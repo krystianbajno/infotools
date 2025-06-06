@@ -1,0 +1,14 @@
+# Threat Intelligence Search Tool Dependencies
+# Generated for infotools project
+
+# Core HTTP and web scraping
+requests>=2.31.0
+httpx>=0.26.0
+beautifulsoup4>=4.12.0
+
+# RSS feed parsing
+feedparser>=6.0.10
+
+# Optional development dependencies (uncomment if needed)
+# pytest>=7.0.0
+# python-dotenv>=1.0.0 
