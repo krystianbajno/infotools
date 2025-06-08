@@ -13,10 +13,10 @@
       "enabled": true
     },
     "shodan": {
-      "enabled": true
+      "enabled": false
     },
     "ipgeo": {
-      "enabled": true
+      "enabled": false
     },
     "crtsh": {
       "enabled": false
