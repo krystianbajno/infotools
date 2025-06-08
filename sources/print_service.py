@@ -334,6 +334,39 @@ def format_ip_geolocation_result(geo_data: Dict[str, Any], index: int, verbose: 
     
     return "\n".join(output)
 
+def format_cve_result(cve_data: Dict[str, Any], index: int, verbose: bool = False) -> str:
+    """Format a CVE result for display"""
+    output = []
+    output.append(f"[{index}] (CVE)")
+    output.append(f"  CVE ID: {cve_data.get('cve_id', 'Unknown')}")
+    
+    aliases = cve_data.get('aliases', [])
+    if aliases:
+        output.append(f"  Aliases: {', '.join(aliases)}")
+    
+    description = cve_data.get('description', '')
+    if description:
+        # Truncate long descriptions unless verbose
+        if len(description) > 200 and not verbose:
+            description = description[:200] + "..."
+        output.append(f"  Description: {description}")
+    
+    references = cve_data.get('references', [])
+    if references and verbose:
+        output.append(f"  References ({len(references)}):")
+        for ref in references[:3]:  # Show first 3 references
+            if isinstance(ref, dict):
+                ref_url = ref.get('url', '')
+                ref_name = ref.get('name', 'Unknown')
+                if ref_url:
+                    output.append(f"    - {ref_name}: {ref_url}")
+        if len(references) > 3:
+            output.append(f"    ... and {len(references) - 3} more references")
+    elif references:
+        output.append(f"  References: {len(references)} available")
+    
+    return "\n".join(output)
+
 def print_unified_results(results: Dict[str, Any], verbose: bool = False) -> None:
     """Print results from multiple sources in unified format"""
     all_results = []
@@ -342,37 +375,31 @@ def print_unified_results(results: Dict[str, Any], verbose: bool = False) -> Non
     if 'malpedia' in results and results['malpedia']:
         for ref in results['malpedia']:
             date_str = ref.get('year', ref.get('date', '0000'))
-            # Ensure we have a valid string for sorting
-            date_for_sort = str(date_str) if date_str is not None else '0000'
             all_results.append({
                 'source': 'malpedia',
                 'data': ref,
                 'date': date_str,
-                'date_for_sort': date_for_sort
+                'date_for_sort': date_str
             })
     
     if 'otx' in results and results['otx'].get('pulses'):
         for pulse in results['otx']['pulses']:
             date_str = pulse.get('created', '')
-            # Ensure we have a valid string for sorting
-            date_for_sort = str(date_str) if date_str is not None else '0000-01-01T00:00:00'
             all_results.append({
                 'source': 'otx',
                 'data': pulse,
                 'date': date_str,
-                'date_for_sort': date_for_sort
+                'date_for_sort': date_str
             })
     
     if 'rss' in results and results['rss'].get('articles'):
         for article in results['rss']['articles']:
             date_str = article.get('published', '')
-            # Ensure we have a valid string for sorting
-            date_for_sort = str(date_str) if date_str is not None else '0000-01-01T00:00:00'
             all_results.append({
                 'source': 'rss',
                 'data': article,
                 'date': date_str,
-                'date_for_sort': date_for_sort
+                'date_for_sort': date_str
             })
     
 
@@ -382,25 +409,21 @@ def print_unified_results(results: Dict[str, Any], verbose: bool = False) -> Non
             # Handle both collection results and direct objects
             obj = stix_obj.get('object', stix_obj)
             date_str = obj.get('created', obj.get('modified', ''))
-            # Ensure we have a valid string for sorting
-            date_for_sort = str(date_str) if date_str is not None else '0000-01-01T00:00:00'
             all_results.append({
                 'source': 'stix',
                 'data': stix_obj,
                 'date': date_str,
-                'date_for_sort': date_for_sort
+                'date_for_sort': date_str
             })
     
     if 'threatfox' in results and results['threatfox'].get('iocs'):
         for ioc in results['threatfox']['iocs']:
             date_str = ioc.get('first_seen_utc', '')
-            # Ensure we have a valid string for sorting
-            date_for_sort = str(date_str) if date_str is not None else '0000-01-01T00:00:00'
             all_results.append({
                 'source': 'threatfox',
                 'data': ioc,
                 'date': date_str,
-                'date_for_sort': date_for_sort
+                'date_for_sort': date_str
             })
     
     if 'shodan_internetdb' in results and results['shodan_internetdb'].get('results'):
@@ -428,16 +451,23 @@ def print_unified_results(results: Dict[str, Any], verbose: bool = False) -> Non
     if 'crtsh_subdomains' in results and results['crtsh_subdomains'].get('subdomains'):
         for subdomain_data in results['crtsh_subdomains']['subdomains']:
             # Use certificate dates if available, otherwise current date
-            date_str = subdomain_data.get('not_before')
-            if date_str is None:
-                date_str = datetime.now().isoformat()
-            # Ensure we have a valid string for sorting
-            date_for_sort = str(date_str) if date_str is not None else datetime.now().isoformat()
+            date_str = subdomain_data.get('not_before', datetime.now().isoformat())
             all_results.append({
                 'source': 'crtsh_subdomains',
                 'data': subdomain_data,
                 'date': date_str,
-                'date_for_sort': date_for_sort
+                'date_for_sort': date_str
+            })
+    
+    if 'cve' in results and results['cve'].get('cves'):
+        for cve_data in results['cve']['cves']:
+            # CVE doesn't have dates, so use current date for sorting
+            current_date = datetime.now().isoformat()
+            all_results.append({
+                'source': 'cve',
+                'data': cve_data,
+                'date': current_date,
+                'date_for_sort': current_date
             })
     
     # Sort all results by date (newest first)
@@ -472,7 +502,11 @@ def print_unified_results(results: Dict[str, Any], verbose: bool = False) -> Non
             formatted = format_ip_geolocation_result(data, i, verbose)
         elif source == 'crtsh_subdomains':
             formatted = format_crtsh_subdomain_result(data, i, verbose)
-        
+        elif source == 'cve':
+            formatted = format_cve_result(data, i, verbose)
+        else:
+            formatted = f"[{i}] (UNKNOWN SOURCE: {source})\n  Data: {data}"
+            
         print(formatted)
         print("-" * 40)
 
@@ -538,6 +572,16 @@ def print_source_summary(results: Dict[str, Any]) -> None:
         print(f"  crt.sh Subdomains: {count} subdomains for {domain_searched}")
         total += count
     
+    if 'cve' in results and results['cve'].get('cves'):
+        count = len(results['cve']['cves'])
+        aliases_count = len(results['cve'].get('aliases_found', []))
+        search_term = results['cve'].get('search_term', 'unknown')
+        if aliases_count > 0:
+            print(f"  CVE Database: {count} CVEs for '{search_term}' ({aliases_count} aliases found)")
+        else:
+            print(f"  CVE Database: {count} CVEs for '{search_term}'")
+        total += count
+    
     print(f"  Total: {total} results")
     
     # Print errors if any
@@ -553,6 +597,9 @@ def print_source_summary(results: Dict[str, Any]) -> None:
     
     if 'crtsh_subdomains' in results and results['crtsh_subdomains'].get('errors'):
         error_count += len(results['crtsh_subdomains']['errors'])
+    
+    if 'cve' in results and results['cve'].get('error'):
+        error_count += 1
     
     if error_count > 0:
         print(f"  Errors: {error_count} (use --verbose for details)")
@@ -605,6 +652,11 @@ def print_errors(results: Dict[str, Any], verbose: bool = False) -> None:
         print(f"\ncrt.sh Subdomain Errors ({len(results['crtsh_subdomains']['errors'])}):")
         for error in results['crtsh_subdomains']['errors']:
             print(f"  - {error.get('domain', 'Unknown domain')}: {error.get('error', 'Unknown error')}")
+    
+    if 'cve' in results and results['cve'].get('error'):
+        errors_found = True
+        print(f"\nCVE Database Error:")
+        print(f"  - {results['cve']['error']}")
     
     if not errors_found and verbose:
         print("\nNo errors encountered.") 

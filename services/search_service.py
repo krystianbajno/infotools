@@ -20,6 +20,7 @@ from sources.threatfox import search_threatfox
 from sources.shodan_internetdb import search_shodan_internetdb
 from sources.ip_geolocation import search_ip_geolocation
 from sources.crtsh_subdomains import search_crtsh_subdomains
+from sources.cve import search_cve
 
 
 def load_env_file():
@@ -266,6 +267,31 @@ def search_crtsh_subdomains_service(search_term: str, quiet: bool = False, **kwa
             'error': str(e)
         }
 
+def search_cve_service(search_term: str, reload: bool = False, **kwargs) -> Dict[str, Any]:
+    """Search CVE database service wrapper"""
+    try:
+        result = search_cve(search_term, reload=reload)
+        
+        return {
+            'status': 'success',
+            'source': 'cve',
+            'results': result.get('cves', []),
+            'count': result.get('total_found', 0),
+            'aliases_found': result.get('aliases_found', []),
+            'search_term': result.get('search_term', search_term),
+            'error': result.get('error', None)
+        }
+    except Exception as e:
+        return {
+            'status': 'error',
+            'source': 'cve',
+            'results': [],
+            'count': 0,
+            'aliases_found': [],
+            'search_term': search_term,
+            'error': str(e)
+        }
+
 
 
 # Available sources mapping
@@ -316,6 +342,12 @@ AVAILABLE_SOURCES = {
         'name': 'crt.sh Subdomain Enumeration',
         'description': 'Certificate transparency logs for subdomain discovery',
         'function': search_crtsh_subdomains_service,
+        'requires_api': False
+    },
+    'cve': {
+        'name': 'CVE Database',
+        'description': 'NIST NVD CVE database with alias mapping (ETERNALBLUE, MS bulletins, etc.)',
+        'function': search_cve_service,
         'requires_api': False
     },
 

@@ -1,408 +1,405 @@
 # Active RSS Feeds
-# Tested and verified on: 2025-06-07 17:09:03
+# Tested and verified on: 2025-06-08 10:40:06
 # Format: feed_name|feed_url|category
 # All feeds below responded successfully with valid RSS/XML content
 
-Center for Internet Security - Medical Advisories|https://www.cisa.gov/cybersecurity-advisories/ics-medical-advisories.xml|government
-China Central Television (CCTV) China Video|http://english.cctv.cn/service/rss/9/index.xml|general_security
-China Central Television (CCTV) Sports|http://english.cctv.cn/service/rss/6/index.xml|general_security
-China Central Television (CCTV) World|http://english.cctv.cn/service/rss/2/index.xml|general_security
-China Central Television (CCTV) China|http://english.cctv.cn/service/rss/1/index.xml|general_security
-China Central Television (CCTV) Culture|http://english.cctv.cn/service/rss/4/index.xml|general_security
-China Central Television (CCTV) High Tech|http://english.cctv.cn/service/rss/5/index.xml|general_security
-China Central Television (CCTV) Travel|http://english.cctv.cn/service/rss/7/index.xml|general_security
-China Central Television (CCTV) World Video|http://english.cctv.cn/service/rss/10/index.xml|general_security
-Ars Technica|http://feeds.arstechnica.com/arstechnica/index|general_security
-NCSC (UK) - Reports|https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml|government
-Ransomware News (The Cyber Wire)|https://thecyberwire.com/feeds/rss.xml|security_news
-Fundacja im. Kazimierza Pułaskiego|https://pulaski.pl/feed/|general_security
-Snopes.com|https://www.snopes.com/feed/|general_security
-China Central Television (CCTV) Biz|http://english.cctv.cn/service/rss/3/index.xml|general_security
 Center for Internet Security - All Advisories|https://www.cisa.gov/cybersecurity-advisories/all.xml|government
-Center for Internet Security - ICS Advisories|https://www.cisa.gov/cybersecurity-advisories/ics-advisories.xml|government
-Krebs on Security – Ransomware|https://krebsonsecurity.com/tag/ransomware/feed/|security_research
-Rapid7 Cybersecurity Blog|https://blog.rapid7.com/rss/|security_research
-UK NCSC|https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml|government
-Krebs on Security|https://krebsonsecurity.com/feed/|security_research
-USA CISA All Advisories|https://www.cisa.gov/uscert/ncas/all.xml|government
-Al Jazeera English|https://www.aljazeera.com/xml/rss/all.xml|general_security
-CVE Feed Newsroom|https://cvefeed.io/rssfeed/newsroom.xml|security_news
-Foreign Policy Magazine|https://foreignpolicy.com/feed/|general_security
-Michał Bentkowski (@SecurityMB)|https://www.bentkowski.info/rss.xml|security_research
-TVN24|https://tvn24.pl/najnowsze.xml|general_security
-Bleeping Computer|https://www.bleepingcomputer.com/feed/|general_security
-CyberScoop|https://www.cyberscoop.com/feed/|general_security
-Disconnect3d's blog|https://disconnect3d.pl/feed|general_security
-Infosecurity Magazine|https://www.infosecurity-magazine.com/rss/news/|security_research
 Latest Vulnerabilities|https://cvefeed.io/rssfeed/latest.xml|general_security
+USA CISA All Advisories|https://www.cisa.gov/uscert/ncas/all.xml|government
+China Central Television (CCTV) Biz|http://english.cctv.cn/service/rss/3/index.xml|general_security
+Fundacja im. Kazimierza Pułaskiego|https://pulaski.pl/feed/|general_security
+Krebs on Security – Ransomware|https://krebsonsecurity.com/tag/ransomware/feed/|security_research
+Newsweek Polska|https://www.newsweek.pl/rss.xml|security_news
+Public Cloud Security Breaches|https://www.breaches.cloud/index.xml|security_research
+Rapid7 Cybersecurity Blog|https://blog.rapid7.com/rss/|security_research
+Rapid7 Vulnerability & Exploit Database|https://blog.rapid7.com/feed/|security_research
+Center for Internet Security - ICS Advisories|https://www.cisa.gov/cybersecurity-advisories/ics-advisories.xml|government
+ICS-CERT Advisories|https://www.cisa.gov/uscert/ics/advisories/advisories.xml|government
+NCSC (UK) - Reports|https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml|government
+bellingcat - America|https://www.bellingcat.com/category/americas/feed/|osint
+NCSC (UK) - News|https://www.ncsc.gov.uk/api/1/services/v1/news-rss-feed.xml|government
+PS C:\Users\itm4n&gt; _|https://itm4n.github.io/feed.xml|general_security
+UK NCSC|https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml|government
+"Publications Hacking Lab"|https://kaist-hacking.github.io/publication/index.xml|general_security
+bellingcat - Africa|https://www.bellingcat.com/category/africa/feed/|osint
+DARKNAVY|https://www.darknavy.org/index.xml|general_security
+Diary of a reverse-engineer|https://doar-e.github.io/feeds/rss.xml?_=|general_security
+Elttam|https://little-canada.org/feeds/output/elttam.rss|general_security
+Exploits.forsale|https://little-canada.org/feeds/output/exploitsforsale.rss|general_security
+Google Security Research Advisories|https://little-canada.org/feeds/output/google-research-advisories.rss|security_research
+Joseph Ravichandran|https://little-canada.org/feeds/output/jprx.rss?_123|general_security
+Keen Security Lab (Tencent)|https://little-canada.org/feeds/output/tencent-keenlabs.rss|security_research
+Microsoft Browser Vulnerability Research|https://microsoftedge.github.io/edgevr/feed.xml|security_research
+Rayanfam Blog|https://rayanfam.com/feed.xml|general_security
+Sam Curry|https://samcurry.net/api/feed.rss|general_security
+Trenchant|http://little-canada.org/feeds/output/trenchant.rss|general_security
+Bleeping Computer|https://www.bleepingcomputer.com/feed/|general_security
+Disconnect3d's blog|https://disconnect3d.pl/feed|general_security
+Foreign Policy Magazine|https://foreignpolicy.com/feed/|general_security
+Hacktus|https://hacktus.tech/rss.xml|general_security
+Intrigusâ€™ Security Lab|https://intrigus.org/feed.xml|security_research
+NV.ua|https://nv.ua/rss/all.xml|general_security
+Orange Cyberdefense|https://sensepost.com/rss.xml|general_security
+Oversecured|https://blog.oversecured.com/feed.xml|general_security
+Ransomware News (The Cyber Wire)|https://thecyberwire.com/feeds/rss.xml|security_news
 TechCrunch|https://techcrunch.com/feed/|general_security
+Teddy Katzâ€™s Blog|https://blog.teddykatz.com/feed.xml|general_security
+The Guardian|https://www.theguardian.com/world/rss|general_security
+US-Cert National Cyber Awareness System - Current Activity|https://us-cert.cisa.gov/ncas/current-activity.xml|government
+Al Jazeera English|https://www.aljazeera.com/xml/rss/all.xml|general_security
+blog.avast.com EN|https://blog.avast.com/rss.xml|general_security
+Center for Internet Security - Medical Advisories|https://www.cisa.gov/cybersecurity-advisories/ics-medical-advisories.xml|government
+CVE Feed Newsroom|https://cvefeed.io/rssfeed/newsroom.xml|security_news
+DFSEC Research|https://blog.dfsec.com/feed.xml|security_research
+Grey Dynamics|https://greydynamics.com/feed/|ics_security
 The Diplomat|https://thediplomat.com/feed/|general_security
 Thomas Dullien / Halvar Flake|https://thomasdullien.github.io/index.xml|general_security
-bellingcat|https://www.bellingcat.com/feed/|osint
-CERT-FR MENACES ET INCIDENTS|https://www.cert.ssi.gouv.fr/cti/feed/|government
-Cyber Intelligence Insights|https://intelinsights.substack.com/feed|general_security
-France CERT-FR|https://www.cert.ssi.gouv.fr/feed/|government
-Ransomware News (The Guardian)|https://www.theguardian.com/technology/data-computer-security/rss|security_news
+Troy Hunt - Security|https://www.troyhunt.com/tag/security/rss/|security_research
 War on the Rocks|https://warontherocks.com/feed/|general_security
-WP Wiadomości|https://wiadomosci.wp.pl/rss.xml|general_security
-Blogs on Raelize|https://raelize.com/blog/index.xml|general_security
-German Marshall Fund of the United States|https://www.gmfus.org/rss.xml|general_security
-Krebs on Security|http://krebsonsecurity.com/feed/|security_research
-Netherlands NCSC NL|https://feeds.english.ncsc.nl/news.rss|government
-Palo Alto Unit 42|https://unit42.paloaltonetworks.com/feed/|threat_intelligence
-Slovakia SK-CERT|https://www.sk-cert.sk/index.html%3Ffeed=rss|government
-Ukraine CERT-UA|https://cert.gov.ua/api/articles/rss|government
-Ukrayinska Pravda|https://www.pravda.com.ua/rss/|general_security
-Wired|https://www.wired.com/feed/rss|general_security
-Check Point Blog|https://blog.checkpoint.com/feed/|threat_intelligence
-CISA Alerts|https://www.cisa.gov/uscert/ncas/alerts.xml|government
-Cybercrime Diaries|https://www.cybercrimediaries.com/blog-feed.xml|general_security
-ESET Research|https://www.welivesecurity.com/feed/|security_research
-evilsocket|https://www.evilsocket.net/atom.xml|general_security
-Feedly Threat Intelligence|https://feedly.com/threat-intelligence|general_security
-Justas Masiulis blog|https://bugcheck.me/feed|general_security
-marcograss' blog|https://marcograss.github.io/feed.xml|general_security
-New York Times|https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml|general_security
-Polsat News|https://www.polsatnews.pl/rss|security_news
-Public Cloud Security Breaches|https://www.breaches.cloud/index.xml|security_research
-Sweden CERT-SE|https://www.cert.se/feed.rss|government
-Troy Hunt - Scam|https://www.troyhunt.com/tag/scam/rss/|general_security
-Articles|https://www.corellium.com/blog/rss.xml|general_security
-Avira Blog|https://www.avira.com/en/blog/feed|general_security
-Blogs on Summoning Team|https://summoning.team/blog/index.xml|general_security
-CNN Top Stories|http://rss.cnn.com/rss/edition.rss|general_security
-DFSEC Research|https://blog.dfsec.com/feed|security_research
-Espreso TV|https://espreso.tv/rss|general_security
-Graham Cluley|https://grahamcluley.com/feed/|general_security
-hackndo|https://en.hackndo.com/feed|general_security
-MIT Technology Review|https://www.technologyreview.com/feed/|academic
-Ransomware News (Security Forum)|https://www.securityforum.org/feed/|security_research
-Rapid7 Vulnerability & Exploit Database|https://blog.rapid7.com/feed/|security_research
-The Open Cloud Vulnerability Database|https://www.cloudvulndb.org/rss/feed.xml|cloud_security
-Trybunał Konstytucyjny|https://trybunal.gov.pl/rss.xml|government
-5pider.net Blog|https://5pider.net/blog/rss.xml|general_security
-Black Hills Information Security|https://www.blackhillsinfosec.com/feed/|security_research
-Cisco Talos Blog|https://blog.talosintelligence.com/rss/|threat_intelligence
-Grey Dynamics|https://greydynamics.com/feed/|ics_security
-Money.pl|https://www.money.pl/rss|general_security
-Newsweek Polska|https://www.newsweek.pl/rss.xml|security_news
-Rust Blog|https://blog.rust-lang.org/feed|general_security
-ThreatConnect Blog|https://threatconnect.com/blog/feed/|threat_intelligence
-Troy Hunt|https://www.troyhunt.com/rss/|general_security
-Alex Plaskett|https://alexplaskett.github.io/feed|general_security
-CIO Magazine - Security|https://www.cio.com/security/feed/|security_research
-EUROPOL Cybercrime Centre|https://www.europol.europa.eu/rss.xml|general_security
+Assetnote|https://blog.assetnote.io/feed.xml|general_security
+Cyber Intelligence Insights|https://intelinsights.substack.com/feed|general_security
 Exploit-DB.com RSS Feed|https://www.exploit-db.com/rss.xml|general_security
+marcograss' blog|https://marcograss.github.io/feed.xml|general_security
+n1ght-w0lf|https://n1ght-w0lf.github.io/feed|general_security
+PortSwigger Research|https://portswigger.net/research/rss|security_research
+Schneier on Security|https://www.schneier.com/blog/atom.xml|security_research
+Troy Hunt|https://www.troyhunt.com/rss/|general_security
+5pider.net Blog|https://5pider.net/blog/rss.xml|general_security
+Access Vector - Vulnerability Research & Software Exploitation|https://accessvector.net/rss.xml|security_research
+Alex Plaskett|https://alexplaskett.github.io/feed|general_security
+Ars Technica|http://feeds.arstechnica.com/arstechnica/index|general_security
+Blogs on STAR Labs|https://starlabs.sg/blog/index.xml|security_research
+Blogs on Summoning Team|https://summoning.team/blog/index.xml|general_security
+Embrace The Red|https://embracethered.com/blog/index.xml|general_security
+hackndo|https://en.hackndo.com/feed|general_security
+Impalabs Blog|https://blog.impalabs.com/feed.xml|security_research
+Meta Red Team X|https://rtx.meta.security/feed.xml|general_security
+ODS Security Research - Nolen Johnson|https://oddsolutions.github.io/feed.xml|security_research
+Rust Blog|https://blog.rust-lang.org/feed|general_security
+Satoshi's notes|https://tandasat.github.io/blog/feed.xml|general_security
+Taszk.io labs|https://labs.taszk.io/blog/index.xml|security_research
+Brookings Institution – Foreign Policy|https://www.brookings.edu/feed/?post_type=foreign-policy|general_security
+Cyber Intelligence Center Updates|https://www.kelacyber.com/blog/feed/|general_security
+Polsat News|https://www.polsatnews.pl/rss|security_news
+Ransomware News (Security Forum)|https://www.securityforum.org/feed/|security_research
+Sweden CERT-SE|https://www.cert.se/feed.rss|government
+The Verge|https://www.theverge.com/rss/index.xml|general_security
+Troy Hunt - Scam|https://www.troyhunt.com/tag/scam/rss/|general_security
+XPN InfoSec Blog|https://blog.xpnsec.com/rss.xml|general_security
+(Web-)Insecurity Blog|https://security.lauritz-holtmann.de/index.xml|security_research
+Avira Blog|https://www.avira.com/en/blog/feed|general_security
+China Daily|https://europe.chinadaily.com.cn/rss.html|general_security
+Feedly Threat Intelligence|https://feedly.com/threat-intelligence|general_security
 Finland NCSC-FI News|https://www.kyberturvallisuuskeskus.fi/sites/default/files/rss/news.xml|government
 Finland NCSC-FI Vulnerabilities|https://www.kyberturvallisuuskeskus.fi/sites/default/files/rss/vulns.xml|government
-Hong Kong GovCERT.HK|https://www.govcert.gov.hk/en/rss_security_alerts.xml|government
-The Economist|https://www.economist.com/latest/rss.xml|general_security
-US-CERT Cybersecurity Alerts|https://www.us-cert.gov/ncas/alerts.xml|government
-Wirtualne Media|https://www.wirtualnemedia.pl/rss/wirtualnemedia_rss.xml|general_security
-Blogs on STAR Labs|https://starlabs.sg/blog/index.xml|security_research
-Frycos Security Diary|https://frycos.github.io/feed|security_research
-Gamozo Labs Blog|https://gamozolabs.github.io/feed.xml|security_research
-ICS-CERT Advisories|https://www.cisa.gov/uscert/ics/advisories/advisories.xml|government
-Orange Cyberdefense|https://sensepost.com/rss.xml|general_security
-CERT Orange|https://cert.orange.pl/feed|CERT
-CERT Polska|https://cert.pl/rss|CERT
-Poland CERT.PL|https://cert.pl/en/rss.xml|government
-The Verge|https://www.theverge.com/rss/index.xml|general_security
-Atlantic Council|https://www.atlanticcouncil.org/feed/|general_security
-BBC News|http://feeds.bbci.co.uk/news/rss.xml|security_news
-IntelNews.org|https://intelnews.org/feed/|security_news
+Graham Cluley|https://grahamcluley.com/feed/|general_security
+Justas Masiulis blog|https://bugcheck.me/feed|general_security
 Latvia CERT.LV|https://cert.lv/en/feed/rss/all|government
-Lohrmann on Cybersecurity|http://feeds.feedburner.com/govtech/blogs/lohrmann_on_infrastructure|security_research
-n1ght-w0lf|https://n1ght-w0lf.github.io/feed|general_security
-The Human Machine Interface|https://h0mbre.github.io/feed.xml|general_security
-The Trail of Bits Blog|https://blog.trailofbits.com/feed/|security_research
-US-CERT National Cyber Awareness System|https://us-cert.cisa.gov/ncas/alerts.xml|government
-VictorV的小博客|https://v-v.space/atom.xml|general_security
-XPN InfoSec Blog|https://blog.xpnsec.com/rss.xml|general_security
-CrowdStrike Blog|https://www.crowdstrike.com/blog/feed/|threat_intelligence
-Isosceles Blog|https://blog.isosceles.com/rss/|general_security
-PortSwigger Research|https://portswigger.net/research/rss|security_research
-Proofpoint Threat Insight Blog|https://www.proofpoint.com/us/rss.xml|general_security
-Ransomware News (Threatpost)|https://threatpost.com/category/malware-2/feed/|security_news
-The Guardian|https://www.theguardian.com/world/rss|general_security
-Trend Micro Simply Security|http://feeds.trendmicro.com/TrendMicroResearch|security_research
-US-Cert National Cyber Awareness System - Current Activity|https://us-cert.cisa.gov/ncas/current-activity.xml|government
-Connof McGarr|https://connormcgarr.github.io/feed|general_security
+SentinelOne Labs|https://www.sentinelone.com/labs/feed/|security_research
+Stories by Renwa on Medium|https://medium.com/@renwa/feed|general_security
+Stratum Security Blog|https://blog.stratumsecurity.com/rss/|security_research
+Black Hills Information Security|https://www.blackhillsinfosec.com/feed/|security_research
+CBS News|https://www.cbsnews.com/latest/rss/main|security_news
+China Central Television (CCTV) China|http://english.cctv.cn/service/rss/1/index.xml|general_security
+EUROPOL Cybercrime Centre|https://www.europol.europa.eu/rss.xml|general_security
+Forbes|https://www.forbes.com/business/feed2/|general_security
+France CERT-FR|https://www.cert.ssi.gouv.fr/feed/|government
+Frycos Security Diary|https://frycos.github.io/feed|security_research
+German Marshall Fund of the United States|https://www.gmfus.org/rss.xml|general_security
+MIT Technology Review|https://www.technologyreview.com/feed/|academic
+The Open Cloud Vulnerability Database|https://www.cloudvulndb.org/rss/feed.xml|cloud_security
+ThreatConnect Blog|https://threatconnect.com/blog/feed/|threat_intelligence
+Alexander Popov|https://a13xp0p0v.github.io/feed.xml|general_security
+Antyweb (Poland)|https://antyweb.pl/feed|general_security
+Atlantic Council|https://www.atlanticcouncil.org/feed/|general_security
+BitMEX Blog|https://blog.bitmex.com/feed/?lang=en_US|general_security
+Blogs on Raelize|https://raelize.com/blog/index.xml|general_security
+CERT-FR MENACES ET INCIDENTS|https://www.cert.ssi.gouv.fr/cti/feed/|government
+China Central Television (CCTV) Culture|http://english.cctv.cn/service/rss/4/index.xml|general_security
+China Central Television (CCTV) World Video|http://english.cctv.cn/service/rss/10/index.xml|general_security
+CIO Magazine - Security|https://www.cio.com/security/feed/|security_research
+Gamozo Labs Blog|https://gamozolabs.github.io/feed.xml|security_research
 Hackread|http://feeds.feedburner.com/hackread|general_security
 Instytut Badań Internetu i Mediów Społecznościowych|https://ibims.pl/feed/|general_security
-Ransomware News (Threatpost)|https://threatpost.com/category/vulnerabilities/feed/|security_news
-Threatpost|https://threatpost.com/feed/|general_security
-blog.avast.com EN|https://blog.avast.com/rss.xml|general_security
-Latest stories for ZDNET in Security|https://www.zdnet.com/topic/security/rss.xml|security_research
-SekurakPL|https://sekurak.pl/rss|general_security
-VulDB Recent Entries|https://vuldb.com/?rss.recent|general_security
-Dziennik.pl|http://rss.dziennik.pl/Dziennik-PL/|general_security
-Magazyn Programista|https://programistamag.pl/rss|general_security
-Polish Institute of International Affairs (PISM)|https://www.pism.pl/rss|general_security
+Netherlands NCSC NL|https://feeds.english.ncsc.nl/news.rss|government
+The Human Machine Interface|https://h0mbre.github.io/feed.xml|general_security
 The Register - Security|http://www.theregister.co.uk/security/headlines.atom|security_research
-Trend Micro Research|http://feeds.trendmicro.com/TrendMicroSimplySecurity|security_research
-UNIAN News Agency|https://rss.unian.net/site/news_eng.rss|security_news
-wPolityce|http://feeds.feedburner.com/wPolitycepl|general_security
-Yoroi Cybaze|https://yoroi.company/feed/|general_security
-Antyweb (Poland)|https://antyweb.pl/feed|general_security
-PAYLOAD|https://payload.pl/feed/|general_security
-Sophos News|https://blogs.sophos.com/feed/|security_news
+China Central Television (CCTV) China Video|http://english.cctv.cn/service/rss/9/index.xml|general_security
+China Central Television (CCTV) High Tech|http://english.cctv.cn/service/rss/5/index.xml|general_security
+China Central Television (CCTV) World|http://english.cctv.cn/service/rss/2/index.xml|general_security
+Cisco Talos Blog|https://blog.talosintelligence.com/rss/|threat_intelligence
+Connor McGarr|https://connormcgarr.github.io/feed.xml|general_security
+DFSEC Research|https://blog.dfsec.com/feed|security_research
+IntelNews.org|https://intelnews.org/feed/|security_news
+Sector 7|https://sector7.computest.nl/index.xml|general_security
+Worth Doing Badly|https://worthdoingbadly.com/feed.xml|general_security
+WP Wiadomości|https://wiadomosci.wp.pl/rss.xml|general_security
+China Central Television (CCTV) Sports|http://english.cctv.cn/service/rss/6/index.xml|general_security
+China Central Television (CCTV) Travel|http://english.cctv.cn/service/rss/7/index.xml|general_security
+Infosecurity Magazine|https://www.infosecurity-magazine.com/rss/news/|security_research
+Johan Carlsson|https://joaxcar.com/blog/feed/|general_security
+Magazyn Programista|https://programistamag.pl/rss|general_security
+Matteo Malvica|https://www.matteomalvica.com/blog/index.xml|general_security
+Ransomware News (Threatpost)|https://threatpost.com/category/malware-2/feed/|security_news
+Threatpost|https://threatpost.com/feed/|general_security
+Wirtualne Media|https://www.wirtualnemedia.pl/rss/wirtualnemedia_rss.xml|general_security
+BBC News|http://feeds.bbci.co.uk/news/rss.xml|security_news
+Connof McGarr|https://connormcgarr.github.io/feed|general_security
+Krebs on Security|https://krebsonsecurity.com/feed/|security_research
+Michał Bentkowski (@SecurityMB)|https://www.bentkowski.info/rss.xml|security_research
+New York Times|https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml|general_security
+Ransomware News (The Guardian)|https://www.theguardian.com/technology/data-computer-security/rss|security_news
+SekurakPL|https://sekurak.pl/rss|general_security
+The GreyNoise Blog|https://www.greynoise.io/blog/rss.xml|general_security
+VictorV的小博客|https://v-v.space/atom.xml|general_security
+Aleph Research - Vulns|http://little-canada.org/feeds/output/aleph-vulns.rss|security_research
+Positive Technologies - learn and secure|http://feeds.feedburner.com/positiveTechnologiesResearchLab|general_security
+Posts on Slonser Notes|https://blog.slonser.info/posts/index.xml|general_security
+Ransomware News (Threatpost)|https://threatpost.com/category/vulnerabilities/feed/|security_news
+Blogs on FUZZING/IO|https://fuzzing.io//blog/index.xml|general_security
+CrowdStrike Blog|https://www.crowdstrike.com/blog/feed/|threat_intelligence
+Dziennik.pl|http://rss.dziennik.pl/Dziennik-PL/|general_security
+spaceraccoon.dev|https://spaceraccoon.dev/feed/|general_security
+Stories by Maor Shwartz on Medium|https://medium.com/@maor_s/feed|general_security
+The Trail of Bits Blog|https://blog.trailofbits.com/feed/|security_research
 US-Cert National Cyber Awareness System - Analysis Reports|https://us-cert.cisa.gov/ncas/analysis-reports.xml|government
+VulDB Recent Entries|https://vuldb.com/?rss.recent|general_security
 AI Security Research|https://aisafety.wordpress.com/feed/|security_research
 CENSUS|https://census-labs.com/news/feeds/rss/|general_security
-SentinelOne Labs|https://www.sentinelone.com/labs/feed/|security_research
-BitMEX Blog|https://blog.bitmex.com/feed/?lang=en_US|general_security
-gynvael.coldwind//vx.log (pl)|https://feeds.feedburner.com/GynvaelColdwindPL|general_security
-Jossef Harush Kadouri|https://medium.com/@jossef/feed|general_security
-SecurityWeek|https://www.securityweek.com/category/cybercrime/feed/|security_research
-bellingcat - Africa|https://www.bellingcat.com/category/africa/feed/|osint
-gynvael.coldwind//vx.log (en)|https://feeds.feedburner.com/GynvaelColdwindEN|general_security
-Satoshi's notes|https://tandasat.github.io/blog/feed.xml|general_security
-bellingcat - America|https://www.bellingcat.com/category/americas/feed/|osint
-European Union Institute for Security Studies (EUISS)|https://www.iss.europa.eu/rss.xml|security_research
-Exploit Reversing|https://exploitreversing.com/feed/|general_security
-Forbes|https://www.forbes.com/business/feed2/|general_security
-Gazeta Prawna|http://rss.gazetaprawna.pl/GazetaPrawna|general_security
-Gordonua|https://gordonua.com/xml/rss_category/top.html|general_security
-Blogs on FUZZING/IO|https://fuzzing.io//blog/index.xml|general_security
+secret club|https://secret.club/feed.xml|general_security
+The Economist|https://www.economist.com/latest/rss.xml|general_security
+watchTowr Labs - Blog|https://labs.watchtowr.com/rss/|security_research
+wPolityce|http://feeds.feedburner.com/wPolitycepl|general_security
+a place of anatomical precision|https://ysanatomic.github.io/feed.xml|general_security
+Articles|https://www.corellium.com/blog/rss.xml|general_security
+Artificial truth|https://dustri.org/b/rss.xml|general_security
+bellingcat|https://www.bellingcat.com/feed/|osint
 CERT-EU|https://cert.europa.eu/publications/security-advisories-rss|government
-European Defence Agency|https://www.eda.europa.eu/rss.xml|general_security
-Malwarebytes Labs Blog|https://blog.malwarebytes.com/feed|security_research
-Ransomware News (The Hacker News)|https://feeds.feedburner.com/TheHackersNews|security_news
-taha aka "lordx64"|https://lordx64.medium.com/feed|general_security
-CNBC|https://www.cnbc.com/id/100003114/device/rss/rss.html|general_security
-Energetyka24|https://energetyka24.com/rss|general_security
 EU Observer – Foreign Affairs|https://euobserver.com/rss/feed/|general_security
-InfoSecurity24|https://infosecurity24.pl/rss|security_research
-Schneier on Security|https://www.schneier.com/blog/atom.xml|security_research
-CyberDefence24|https://cyberdefence24.pl/rss|general_security
-Defence24|https://defence24.pl/rss|general_security
-Estonia CERT-EE|https://www.ria.ee/et/news-feed/all/feed|government
-Hexacorn|http://www.hexacorn.com/blog/feed/|general_security
-j00ru//vx tech blog|https://j00ru.vexillium.org/feed/|general_security
-KICB - Cyberbezpieczeństwo|https://kicb.pl/blog/feed|general_security
-Malwarebytes Labs|https://blog.malwarebytes.com/feed/|security_research
-Ransomware News (Cyber Security News)|https://cybersecuritynews.com/category/cyber-ai/feed/|security_research
-Cyber Security News|https://cybersecuritynews.com/feed/|security_research
-NV.ua|https://nv.ua/rss/all.xml|general_security
-Obserwator Międzynarodowy – Bezpieczeństwo|https://obserwatormiedzynarodowy.pl/category/bezpieczenstwo/osint/feed|general_security
-Ransomware News (Cybersecurity News)|https://cybersecuritynews.com/category/data-breaches/feed/|security_research
-Rzecznik Praw Dziecka|https://brpd.gov.pl/rss|government
-Securelist|https://securelist.com/feed/|general_security
-Space24|https://space24.pl/rss|general_security
-Zaufana Trzecia Strona|https://zaufanatrzeciastrona.pl/feed/|general_security
-Check Point Research|https://research.checkpoint.com/feed/|threat_intelligence
-Graham Cluley|https://www.grahamcluley.com/feed|general_security
-Orange|https://feeds.feedburner.com/blogspot/Aohx|general_security
-random blog|https://threedots.ovh/blog/feed/|general_security
-Sector 7|https://sector7.computest.nl/index.xml|general_security
-CYBER ARMS – Computer Security|http://cyberarms.wordpress.com/feed/|security_research
-The Cipher Brief|https://www.thecipherbrief.com/feed|general_security
-Troy Hunt - Security|https://www.troyhunt.com/tag/security/rss/|security_research
-Worth Doing Badly|https://worthdoingbadly.com/feed.xml|general_security
-Cert Polska|https://cert.pl/en/atom.xml|government
-ElcomSoft blog|http://blog.crackpassword.com/feed|general_security
-Ransomware News (Offensive Security)|https://www.offensive-security.com/feed/|security_research
-nao_sec|https://nao-sec.org/feed|general_security
-NCSC (UK) - News|https://www.ncsc.gov.uk/api/1/services/v1/news-rss-feed.xml|government
-NPR News|https://www.npr.org/rss/rss.php?id=1001|security_news
-Obserwator Międzynarodowy|https://obserwatormiedzynarodowy.pl/feed|general_security
-DoublePulsar (Kevin Beaumont)|https://doublepulsar.com/feed|general_security
-Security Affairs|http://securityaffairs.co/wordpress/feed|security_research
-The GreyNoise Blog|https://www.greynoise.io/blog/rss.xml|general_security
-Ransomware News (Cybersecurity News)|https://cybersecuritynews.com/category/threats/feed/|security_research
-Stories by Maor Shwartz on Medium|https://medium.com/@maor_s/feed|general_security
-EU vs Disinfo (European External Action Service)|https://euvsdisinfo.eu/feed/|general_security
-Korrespondent.net|http://k.img.com.ua/rss/ru/all_news2.0.xml|general_security
-Croatia CERT.hr|https://www.cert.hr/feed/|government
-Curated Intelligence|https://www.curatedintel.org/feeds/posts/default|general_security
-Algeria DZ-CERT|http://www.cerist.dz/index.php/en/?format=feed&type=rss|government
-bishopfox.com|https://bishopfox.com/feeds/blog.rss|general_security
-Censor.NET|https://censor.net.ua/includes/news_ru.xml|general_security
-Obserwator Międzynarodowy|https://obserwatormiedzynarodowy.pl/category/bezpieczenstwo/cyberbezpieczenstwo/feed|general_security
-Ransomware News (Cybersecurity News)|https://cybersecuritynews.com/category/vulnerability/feed/|security_research
-UN News|https://news.un.org/feed/subscribe/en/news/all/rss.xml|security_news
-CBS News|https://www.cbsnews.com/latest/rss/main|security_news
-Microsoft Security Response Center|https://msrc.microsoft.com/blog/feed|security_research
-Malware Analysis, News and Indicators|https://malware.news/latest.rss|security_research
-Austria CERT.at|https://cert.at/cert-at.en.blog.rss_2.0.xml|government
-Dark Reading|https://www.darkreading.com/rss.xml|general_security
-IoT Security Foundation|https://www.iotsecurityfoundation.org/feed/|security_research
-Ransomware News (Frida)|http://www.frida.re/feed.xml|security_news
-apps3c|https://www.apps3c.info/feed/|general_security
-sebdraven|https://sebdraven.medium.com/feed|general_security
-Will's Root|https://www.willsroot.io/feeds/posts/default|general_security
-Finland NCSC-FI Security Now|https://www.kyberturvallisuuskeskus.fi/feed/rss/en/399|government
-TSN.ua|https://tsn.ua/rss/full.rss|general_security
-Cyber Intelligence Center Updates|https://www.kelacyber.com/blog/feed/|general_security
-CyberDefence24.pl|https://www.cyberdefence24.pl/rss|general_security
-Azeria Labs|https://azeria-labs.com/feed/|security_research
-natashenka|https://natashenka.ca/feed/|general_security
-ZaufanaTrzeciaStrona|https://zaufanatrzeciastrona.pl/rss|general_security
-Reddit - /r/cybersecurity|https://www.reddit.com/r/cybersecurity/.rss|security_research
-Spain CCN-CERT News|https://www.ccn-cert.cni.es/component/obrss/rss-noticias.feed|government
-Spain CCN-CERT Vulnerabilities|https://www.ccn-cert.cni.es/component/obrss/rss-ultimas-vulnerabilidades.feed|government
-Reddit - /r/blueteamsec/|https://www.reddit.com/r/blueteamsec/.rss|general_security
-Slovenia SI-CERT|https://www.cert.si/en/category/news/feed/|government
-Brookings Institution – Foreign Policy|https://www.brookings.edu/feed/?post_type=foreign-policy|general_security
-Daily CyberSecurity|https://securityonline.info/feed/|security_research
-Finland NCSC-FI|https://www.kyberturvallisuuskeskus.fi/feed/rss/en|government
-Portugal CNCS Portugal|https://www.cncs.gov.pt/docs/noticias/feed-rss/index.xml|government
-Reddit - /r/InfoSecNews/|https://www.reddit.com/r/InfoSecNews/.rss|security_news
-Ransomware News (The Hacker News)|https://thehackernews.com/feeds/posts/default?label=Ransomware|security_news
-NewsGuard – Disinformation Monitoring|https://www.newsguardtech.com/feed/|security_news
-Reddit - /r/netsec|http://www.reddit.com/r/netsec/.rss|general_security
-ISC Handler's Diary|https://isc.sans.edu/rssfeed_full.xml|general_security
-Darknet|https://www.darknet.org.uk/feed/|general_security
-Spider’s Web (Poland)|https://www.spidersweb.pl/feed|general_security
-The Hacker News|https://thehackernews.com/feeds/posts/default|security_news
-Shodan Blog|https://blog.shodan.io/rss/|osint
-Recorded Future Blog|https://www.recordedfuture.com/feed/|threat_intelligence
-Cambridge Centre for Geopolitics|https://cfg.polis.cam.ac.uk/feed/|ics_security
-Foreign Policy Research Institute (FPRI)|https://www.fpri.org/feed/|security_research
-Demagog.org.pl|https://demagog.org.pl/rss|general_security
-SecurityWeek - Threat Intelligence|https://www.securityweek.com/category/threat-intelligence/feed/|security_research
-Security Ops|https://security-ops.pl/category/cyberbezpieczenstwo/feed|security_research
-Hacker Combat|https://www.hackercombat.com/feed/|general_security
-Huntress Blog|https://www.huntress.com/blog/rss.xml|general_security
-Japan JPCERT|https://www.jpcert.or.jp/english/rss/jpcert-en.rdf|government
-Emsisoft Ransomware News|https://blog.emsisoft.com/feed/|security_news
-GBHackers THREATS Archives|https://gbhackers.com/category/threatsattacks/feed/|general_security
-Government of Canada Alerts and Advisories|https://www.cyber.gc.ca/api/cccs/rss/v1/get?feed=alerts_advisories&lang=en|government
-pi3 blog|http://blog.pi3.com.pl/?feed=rss2|general_security
-Cyber Threat Alliance (CTA) Ransomware Updates|https://www.cyberthreatalliance.org/feed/|general_security
-Ransomware News (zerosum0x0)|https://zerosum0x0.blogspot.com/feeds/posts/default?alt=rss|security_news
-The DFIR Report|https://thedfirreport.com/feed/|general_security
-DataBreaches|https://www.databreaches.net/feed/|general_security
-GBHackers Data Breach Archives|https://gbhackers.com/category/data-breach/feed/|general_security
-Financial Times|https://www.ft.com/?format=rss|general_security
+GitHub Security Lab|https://github.blog/tag/github-security-lab/feed/|security_research
+PAYLOAD|https://payload.pl/feed/|general_security
+Poland CERT.PL|https://cert.pl/en/rss.xml|government
+CNBC|https://www.cnbc.com/id/100003114/device/rss/rss.html|general_security
+Espreso TV|https://espreso.tv/rss|general_security
+evilsocket|https://www.evilsocket.net/atom.xml|general_security
+Guido Vranken|https://guidovranken.com/feed/|general_security
+Secfault Security GmbH|https://secfault-security.com/feed.rss|security_research
+Snopes.com|https://www.snopes.com/feed/|general_security
+UNIAN News Agency|https://rss.unian.net/site/news_eng.rss|security_news
+US-CERT Cybersecurity Alerts|https://www.us-cert.gov/ncas/alerts.xml|government
+Wired|https://www.wired.com/feed/rss|general_security
+Cisco Talos Intelligence Group - Comprehensive Threat Intelligence|http://feeds.feedburner.com/feedburner/Talos|threat_intelligence
+CNN Top Stories|http://rss.cnn.com/rss/edition.rss|general_security
+Gazeta Prawna|http://rss.gazetaprawna.pl/GazetaPrawna|general_security
+Polish Institute of International Affairs (PISM)|https://www.pism.pl/rss|general_security
 Ransomware News (Aircrack-ng)|https://aircrack-ng.blogspot.com/feeds/posts/default?alt=rss|security_news
-Ricerca Security|https://ricercasecurity.blogspot.com/feeds/posts/default|security_research
-Brazil CERT.br|https://www.cert.br/rss/certbr-rss.xml|government
-Citizen Lab|https://citizenlab.ca/feed/|general_security
+Cyber Security News|https://cybersecuritynews.com/feed/|security_research
+CyberScoop|https://www.cyberscoop.com/feed/|general_security
+Defence24|https://defence24.pl/rss|general_security
+DoublePulsar (Kevin Beaumont)|https://doublepulsar.com/feed|general_security
+Isosceles Blog|https://blog.isosceles.com/rss/|general_security
+Ransomware News (The Hacker News)|https://feeds.feedburner.com/TheHackersNews|security_news
+Trend Micro Research|http://feeds.trendmicro.com/TrendMicroSimplySecurity|security_research
+Gordonua|https://gordonua.com/xml/rss_category/top.html|general_security
+j00ru//vx tech blog|https://j00ru.vexillium.org/feed/|general_security
+Malwarebytes Labs Blog|https://blog.malwarebytes.com/feed|security_research
+nao_sec|https://nao-sec.org/feed|general_security
+Realmode Labs - Medium|https://medium.com/feed/realmodelabs|security_research
+Rzecznik Praw Dziecka|https://brpd.gov.pl/rss|government
+Ukrayinska Pravda|https://www.pravda.com.ua/rss/|general_security
+Malwarebytes Labs|https://blog.malwarebytes.com/feed/|security_research
+Money.pl|https://www.money.pl/rss|general_security
+Ransomware News (Cyber Security News)|https://cybersecuritynews.com/category/cyber-ai/feed/|security_research
+Ransomware News (zerosum0x0)|https://zerosum0x0.blogspot.com/feeds/posts/default?alt=rss|security_news
+TVN24|https://tvn24.pl/najnowsze.xml|general_security
+US-CERT National Cyber Awareness System|https://us-cert.cisa.gov/ncas/alerts.xml|government
+CERT Polska|https://cert.pl/rss|government
+Check Point Research|https://research.checkpoint.com/feed/|threat_intelligence
+CyberDefence24|https://cyberdefence24.pl/rss|general_security
+Estonia CERT-EE|https://www.ria.ee/et/news-feed/all/feed|government
+Orange|https://feeds.feedburner.com/blogspot/Aohx|general_security
+Space24|https://space24.pl/rss|general_security
+Ukraine CERT-UA|https://cert.gov.ua/api/articles/rss|government
+Aleph Research - Posts|http://little-canada.org/feeds/output/aleph-posts.rss|security_research
+CISA Alerts|https://www.cisa.gov/uscert/ncas/alerts.xml|government
+Energetyka24|https://energetyka24.com/rss|general_security
+European Defence Agency|https://www.eda.europa.eu/rss.xml|general_security
+European Union Institute for Security Studies (EUISS)|https://www.iss.europa.eu/rss.xml|security_research
+Hexacorn|http://www.hexacorn.com/blog/feed/|general_security
+IoT Security Foundation|https://www.iotsecurityfoundation.org/feed/|security_research
+KICB - Cyberbezpieczeństwo|https://kicb.pl/blog/feed|general_security
+Lohrmann on Cybersecurity|http://feeds.feedburner.com/govtech/blogs/lohrmann_on_infrastructure|security_research
+random blog|https://threedots.ovh/blog/feed/|general_security
+Ransomware News (Frida)|http://www.frida.re/feed.xml|security_news
+Sean Heelan's Blog|https://sean.heelan.io/feed/?_|general_security
+Check Point Blog|https://blog.checkpoint.com/feed/|threat_intelligence
+Exploit Reversing|https://exploitreversing.com/feed/|general_security
+Ransomware News (Cybersecurity News)|https://cybersecuritynews.com/category/data-breaches/feed/|security_research
+Ransomware News (Cybersecurity News)|https://cybersecuritynews.com/category/threats/feed/|security_research
+Ransomware News (Cybersecurity News)|https://cybersecuritynews.com/category/vulnerability/feed/|security_research
+sebdraven|https://sebdraven.medium.com/feed|general_security
+TSN.ua|https://tsn.ua/rss/full.rss|general_security
+Brendon Tiszka|https://little-canada.org/feeds/output/tiszka.rss|general_security
+Graham Cluley|https://www.grahamcluley.com/feed|general_security
+Securelist|https://securelist.com/feed/|general_security
+Yoroi Cybaze|https://yoroi.company/feed/|general_security
+Apple Security Research|https://little-canada.org/feeds/output/applesecurityresearch.rss|security_research
+Meta - Red Team X - Advisories|https://little-canada.org/feeds/output/meta-redteam-advisories.rss|general_security
+Zaufana Trzecia Strona|https://zaufanatrzeciastrona.pl/feed/|general_security
+CYBER ARMS – Computer Security|http://cyberarms.wordpress.com/feed/|security_research
+jub0bs.com|https://jub0bs.com/posts/index.xml|general_security
+Research â€“ Codean Labs|https://codeanlabs.com/blog/category/research/feed/|security_research
+taha aka "lordx64"|https://lordx64.medium.com/feed|general_security
+Korrespondent.net|http://k.img.com.ua/rss/ru/all_news2.0.xml|general_security
+Security Affairs|http://securityaffairs.co/wordpress/feed|security_research
+Cert Polska|https://cert.pl/en/atom.xml|government
+Croatia CERT.hr|https://www.cert.hr/feed/|government
+gynvael.coldwind//vx.log (pl)|https://feeds.feedburner.com/GynvaelColdwindPL|general_security
+Microsoft Security Response Center|https://msrc.microsoft.com/blog/feed|security_research
+Blaze's Security Blog|https://bartblaze.blogspot.com/feeds/posts/default|security_research
+Curated Intelligence|https://www.curatedintel.org/feeds/posts/default|general_security
+gynvael.coldwind//vx.log (en)|https://feeds.feedburner.com/GynvaelColdwindEN|general_security
+Kaspersky official blog|https://www.kaspersky.co.uk/blog/feed/|general_security
+Latest Bulletins|https://aws.amazon.com/security/security-bulletins/feed/|general_security
+UN News|https://news.un.org/feed/subscribe/en/news/all/rss.xml|security_news
+ElcomSoft blog|http://blog.crackpassword.com/feed|general_security
+Federal Bureau of Investigation (FBI) Cyber Crime|https://www.fbi.gov/investigate/cyber/rss.xml|government
+Algeria DZ-CERT|http://www.cerist.dz/index.php/en/?format=feed&type=rss|government
+Jossef Harush Kadouri|https://medium.com/@jossef/feed|general_security
+Latest stories for ZDNET in Security|https://www.zdnet.com/topic/security/rss.xml|security_research
+NPR News|https://www.npr.org/rss/rss.php?id=1001|security_news
+Austria CERT.at|https://cert.at/cert-at.en.blog.rss_2.0.xml|government
+Palo Alto Unit 42|https://unit42.paloaltonetworks.com/feed/|threat_intelligence
+Ransomware News (Offensive Security)|https://www.offensive-security.com/feed/|security_research
+"Synacktiv Publications"|https://little-canada.org/feeds/output/synacktiv-publications.rss?_=123|general_security
+Malware Analysis, News and Indicators|https://malware.news/latest.rss|security_research
+Slovakia SK-CERT|https://www.sk-cert.sk/index.html%3Ffeed=rss|government
+Censor.NET|https://censor.net.ua/includes/news_ru.xml|general_security
+ESET Research|https://www.welivesecurity.com/feed/|security_research
+Proofpoint Threat Insight Blog|https://www.proofpoint.com/us/rss.xml|general_security
+Cybercrime Diaries|https://www.cybercrimediaries.com/blog-feed.xml|general_security
+InfoSecurity24|https://infosecurity24.pl/rss|security_research
+Krebs on Security|http://krebsonsecurity.com/feed/|security_research
+Obserwator Międzynarodowy|https://obserwatormiedzynarodowy.pl/category/bezpieczenstwo/cyberbezpieczenstwo/feed|general_security
+CyberDefence24.pl|https://www.cyberdefence24.pl/rss|general_security
+Reddit - /r/blueteamsec/|https://www.reddit.com/r/blueteamsec/.rss|general_security
+EU vs Disinfo (European External Action Service)|https://euvsdisinfo.eu/feed/|general_security
+apps3c|https://www.apps3c.info/feed/|general_security
+Reddit - /r/InfoSecNews/|https://www.reddit.com/r/InfoSecNews/.rss|security_news
+The Cipher Brief|https://www.thecipherbrief.com/feed|general_security
+Portugal CNCS Portugal|https://www.cncs.gov.pt/docs/noticias/feed-rss/index.xml|government
+Security Ops|https://security-ops.pl/category/cyberbezpieczenstwo/feed|security_research
+Slovenia SI-CERT|https://www.cert.si/en/category/news/feed/|government
+Financial Times|https://www.ft.com/?format=rss|general_security
+Finland NCSC-FI Security Now|https://www.kyberturvallisuuskeskus.fi/feed/rss/en/399|government
+The Hacker News|https://thehackernews.com/feeds/posts/default|security_news
+Trend Micro Simply Security|http://feeds.trendmicro.com/TrendMicroResearch|security_research
+Will's Root|https://www.willsroot.io/feeds/posts/default|general_security
+ZaufanaTrzeciaStrona|https://zaufanatrzeciastrona.pl/rss|general_security
+NewsGuard – Disinformation Monitoring|https://www.newsguardtech.com/feed/|security_news
+Azeria Labs|https://azeria-labs.com/feed/|security_research
+Finland NCSC-FI|https://www.kyberturvallisuuskeskus.fi/feed/rss/en|government
+ISC Handler's Diary|https://isc.sans.edu/rssfeed_full.xml|general_security
+Japan JPCERT|https://www.jpcert.or.jp/english/rss/jpcert-en.rdf|government
+Blog on Shielder|https://www.shielder.it/blog/index.xml|general_security
+Cambridge Centre for Geopolitics|https://cfg.polis.cam.ac.uk/feed/|ics_security
+Sophos News|https://blogs.sophos.com/feed/|security_news
+bishopfox.com|https://bishopfox.com/feeds/blog.rss|general_security
+CTF Hacker|http://ctfhacker.com/feed.xml|general_security
+Darknet|https://www.darknet.org.uk/feed/|general_security
+Daily CyberSecurity|https://securityonline.info/feed/|security_research
+Shodan Blog|https://blog.shodan.io/rss/|osint
+Demagog.org.pl|https://demagog.org.pl/rss|general_security
+Reddit - /r/netsec|http://www.reddit.com/r/netsec/.rss|general_security
+Foreign Policy Research Institute (FPRI)|https://www.fpri.org/feed/|security_research
 ITwiz|https://itwiz.pl/category/cyberbezpieczenstwo/feed|general_security
 Low-level adventures|https://0x434b.dev/rss/|general_security
-Recorded Future Blog|https://www.recordedfuture.com/feed|threat_intelligence
-Flying Penguin|https://www.flyingpenguin.com/?feed=rss2|general_security
-Project Zero|https://googleprojectzero.blogspot.com/feeds/posts/default|security_research
-Engadget|https://www.engadget.com/rss.xml|general_security
-MDSec|https://www.mdsec.co.uk/feed/|general_security
-Volatility Foundation|https://volatility-labs.blogspot.com/feeds/posts/default|general_security
+SecurityWeek - Threat Intelligence|https://www.securityweek.com/category/threat-intelligence/feed/|security_research
+Reddit - /r/cybersecurity|https://www.reddit.com/r/cybersecurity/.rss|security_research
+Talos - Vulnerability Reports|http://little-canada.org/feeds/output/talos-reports.rss|threat_intelligence
+natashenka|https://natashenka.ca/feed/|general_security
+SecurityWeek|https://www.securityweek.com/category/cybercrime/feed/|security_research
+Brazil CERT.br|https://www.cert.br/rss/certbr-rss.xml|government
+Cyber Threat Alliance (CTA) Ransomware Updates|https://www.cyberthreatalliance.org/feed/|general_security
+kylebot's Blog|https://blog.kylebot.net/atom.xml|general_security
+research.securitum.com|https://research.securitum.com/feed/|security_research
+Hacker Combat|https://www.hackercombat.com/feed/|general_security
 Bezpieczeństwo Polski|https://bezppol.blogspot.com/feeds/posts/default|general_security
-Federal Bureau of Investigation (FBI) Cyber Crime|https://www.fbi.gov/investigate/cyber/rss.xml|government
-Gazeta.ua|https://gazeta.ua/rss|general_security
-Palo Alto Networks Research|http://researchcenter.paloaltonetworks.com/feed/|threat_intelligence
-Qualys Security Blog|https://blog.qualys.com/feed|security_research
-Canada CCCS Alerts|https://cyber.gc.ca/webservice/en/rss/alerts|general_security
-Coveware Ransomware Reports|https://www.coveware.com/blog/rss.xml|general_security
-Latest Bulletins|https://aws.amazon.com/security/security-bulletins/feed/|general_security
-The Hacker News|http://thehackernews.com/feeds/posts/default|security_news
-Blaze's Security Blog|https://bartblaze.blogspot.com/feeds/posts/default|security_research
-SecurityWeek|http://feeds.feedburner.com/Securityweek|security_research
-Tyranid's Lair|https://www.tiraniddo.dev/feeds/posts/default|general_security
-AWS Security Blog|https://aws.amazon.com/blogs/security/feed/|security_research
-Lenny Zeltser|http://blog.zeltser.com/rss|general_security
-European Council on Foreign Relations|https://ecfr.eu/feed/|general_security
+Huntress Blog|https://www.huntress.com/blog/rss.xml|general_security
+Emsisoft Ransomware News|https://blog.emsisoft.com/feed/|security_news
+GBHackers Data Breach Archives|https://gbhackers.com/category/data-breach/feed/|general_security
+GBHackers THREATS Archives|https://gbhackers.com/category/threatsattacks/feed/|general_security
 Palo Alto Networks Blog|https://www.paloaltonetworks.com/blog/feed/|threat_intelligence
-Exploit One|https://www.exploitone.com/feed/|general_security
-Dragos Blog|https://www.dragos.com/blog/feed/|ics_security
-Kaspersky official blog|https://www.kaspersky.co.uk/blog/feed/|general_security
-Rayanfam Blog|https://rayanfam.com/feed.xml|general_security
+The DFIR Report|https://thedfirreport.com/feed/|general_security
+Citizen Lab|https://citizenlab.ca/feed/|general_security
+Dark Reading|https://www.darkreading.com/rss.xml|general_security
+DataBreaches|https://www.databreaches.net/feed/|general_security
+Obserwator Międzynarodowy|https://obserwatormiedzynarodowy.pl/feed|general_security
+Recorded Future Blog|https://www.recordedfuture.com/feed|threat_intelligence
+Spain CCN-CERT Vulnerabilities|https://www.ccn-cert.cni.es/component/obrss/rss-ultimas-vulnerabilidades.feed|government
+Spain CCN-CERT News|https://www.ccn-cert.cni.es/component/obrss/rss-noticias.feed|government
+Ricerca Security|https://ricercasecurity.blogspot.com/feeds/posts/default|security_research
+Mozilla Attack & Defense|https://blog.mozilla.org/attack-and-defense/feed/|general_security
+MDSec|https://www.mdsec.co.uk/feed/|general_security
+Ransomware News (The Hacker News)|https://thehackernews.com/feeds/posts/default?label=Ransomware|security_news
+AWS Security Blog|https://aws.amazon.com/blogs/security/feed/|security_research
+pi3 blog|http://blog.pi3.com.pl/?feed=rss2|general_security
+Volatility Foundation|https://volatility-labs.blogspot.com/feeds/posts/default|general_security
+Blog - Atredis Partners|https://www.atredis.com/blog?format=rss|general_security
+Project Zero|https://googleprojectzero.blogspot.com/feeds/posts/default|security_research
+Palo Alto Networks Research|http://researchcenter.paloaltonetworks.com/feed/|threat_intelligence
 BushidoToken Threat Intel|https://blog.bushidotoken.net/feeds/posts/default|general_security
+Dragos Blog|https://www.dragos.com/blog/feed/|ics_security
+Rhino Security Labs|https://rhinosecuritylabs.com/feed/|security_research
+Gazeta.ua|https://gazeta.ua/rss|general_security
+Hong Kong GovCERT.HK|https://www.govcert.gov.hk/en/rss_security_alerts.xml|government
+Qualys Security Blog|https://blog.qualys.com/feed|security_research
+European Council on Foreign Relations|https://ecfr.eu/feed/|general_security
+lcamtuf's old blog|http://lcamtuf.blogspot.com/feeds/posts/default|general_security
+Spider’s Web (Poland)|https://www.spidersweb.pl/feed|general_security
+Coveware Ransomware Reports|https://www.coveware.com/blog/rss.xml|general_security
+Flying Penguin|https://www.flyingpenguin.com/?feed=rss2|general_security
+Tyranid's Lair|https://www.tiraniddo.dev/feeds/posts/default|general_security
+Niebezpiecznik.pl|https://niebezpiecznik.pl/feed/|general_security
 RET2 Systems Blog|https://blog.ret2.io/feed.xml|general_security
+SecurityWeek|http://feeds.feedburner.com/Securityweek|security_research
+Android Offensive Security Blog|https://androidoffsec.withgoogle.com/index.xml|security_research
+Lenny Zeltser|http://blog.zeltser.com/rss|general_security
+Trybunał Konstytucyjny|https://trybunal.gov.pl/rss.xml|government
+Exploit One|https://www.exploitone.com/feed/|general_security
+Google Security Blog|https://security.googleblog.com/feeds/posts/default|security_research
+Government of Canada Alerts and Advisories|https://www.cyber.gc.ca/api/cccs/rss/v1/get?feed=alerts_advisories&lang=en|government
+ZDI Blog|https://www.zerodayinitiative.com/blog/?format=rss|general_security
+Zero Day Initiative - Blog|https://www.zerodayinitiative.com/blog?format=rss|general_security
+The Exploit Database - CXSecurity.com|http://securityreason.com/rss/ExploitAlert|security_research
 Hong Kong HKCERT|https://www.hkcert.org/getrss/security-bulletin|government
 Narodowy Bank Polski (NBP)|https://www.nbp.pl/rss|general_security
-Mistra Geopolitics|https://mistra-geopolitics.se/news/feed/|ics_security
-Red Canary Blog|https://www.redcanary.com/blog/feed/|general_security
 Help Net Security|https://www.helpnetsecurity.com/feed/|security_research
-Google Security Blog|https://security.googleblog.com/feeds/posts/default|security_research
-ZDI Blog|https://www.zerodayinitiative.com/blog/?format=rss|general_security
-China Daily|https://europe.chinadaily.com.cn/rss.html|general_security
+Canada CCCS Alerts|https://cyber.gc.ca/webservice/en/rss/alerts|general_security
+Recorded Future Blog|https://www.recordedfuture.com/feed/|threat_intelligence
+Red Canary Blog|https://www.redcanary.com/blog/feed/|general_security
+Obserwator Międzynarodowy – Bezpieczeństwo|https://obserwatormiedzynarodowy.pl/category/bezpieczenstwo/osint/feed|general_security
 Bangladesh BGD e-GOV CIRT|https://www.cirt.gov.bd/feed/|government
+Mistra Geopolitics|https://mistra-geopolitics.se/news/feed/|ics_security
 TECHSETTER|https://techsetter.pl/category/aktualnosci/cyberbezpieczenstwo/feed|general_security
-Cisco Security Advisories|https://tools.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisories.xml|security_research
 Hungary NCSC Hungary|https://nki.gov.hu/figyelmeztetesek/riasztas/feed/|government
-Outflux|https://outflux.net/blog/feed/|general_security
-Japan JPCERT Blog|https://blogs.jpcert.or.jp/en/atom.xml|government
-ZDI Upcoming Advisories|https://www.zerodayinitiative.com/rss/upcoming/|general_security
-lcamtuf's old blog|http://lcamtuf.blogspot.com/feeds/posts/default|general_security
-The Exploit Database - CXSecurity.com|http://securityreason.com/rss/ExploitAlert|security_research
-Canada CCCS News|https://cyber.gc.ca/webservice/en/rss/news|security_news
-HackRead|https://www.hackread.com/feed/|general_security
-Published Advisories|https://www.zerodayinitiative.com/rss/published/|general_security
 FactCheck.org|https://www.factcheck.org/feed/|general_security
+Outflux|https://outflux.net/blog/feed/|general_security
+Published Advisories|https://www.zerodayinitiative.com/rss/published/|general_security
+bugs.xdavidhu.me|https://bugs.xdavidhu.me/feed.xml|general_security
+Japan JPCERT Blog|https://blogs.jpcert.or.jp/en/atom.xml|government
+Doyensec's Blog|https://blog.doyensec.com/atom.xml|general_security
+The Hacker News|http://thehackernews.com/feeds/posts/default|security_news
+Project Zero|http://googleprojectzero.blogspot.com/feeds/posts/default|security_research
+ZDI Upcoming Advisories|https://www.zerodayinitiative.com/rss/upcoming/|general_security
 Asia Foundation|https://asiafoundation.org/feed/|general_security
-Mandiant Threat Intelligence|https://www.mandiant.com/resources/blog/rss.xml|threat_intelligence
-Niebezpiecznik.pl|https://niebezpiecznik.pl/feed/|general_security
+HackRead|https://www.hackread.com/feed/|general_security
+Windows Internals Blog|https://windows-internals.com/feed/|general_security
+Cisco Security Advisories|https://tools.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisories.xml|security_research
 Egypt EG-CERT|https://www.egcert.eg/feed/|government
 Ransomware News (The Cyber Express)|https://thecyberexpress.com/firewall-daily/ransomware-news/feed/|security_news
+Mandiant Threat Intelligence|https://www.mandiant.com/resources/blog/rss.xml|threat_intelligence
 Reverse Engineering|https://revers.engineering/feed/|general_security
-Black Hat Ethical Hacking|https://www.blackhatethicalhacking.com/feed/|general_security
-CTF Hacker|http://ctfhacker.com/feed.xml|general_security
 Narodowy Instytut Zdrowia Publicznego – Państwowy Zakład Higieny|https://pzh.gov.pl/rss|government
-Mitre CVE List|https://cve.mitre.org/data/downloads/allitems.xml|academic
-(Web-)Insecurity Blog|https://security.lauritz-holtmann.de/index.xml|vulnres
-Access Vector - Vulnerability Research & Software Exploitation|https://accessvector.net/rss.xml|vulnres
-Aleph Research - Posts|http://little-canada.org/feeds/output/aleph-posts.rss|vulnres
-Aleph Research - Vulns|http://little-canada.org/feeds/output/aleph-vulns.rss|vulnres
-Alexander Popov|https://a13xp0p0v.github.io/feed.xml|vulnres
-Android Offensive Security Blog|https://androidoffsec.withgoogle.com/index.xml|vulnres
-Apple Security Research|https://little-canada.org/feeds/output/applesecurityresearch.rss|vulnres
-Artificial truth|https://dustri.org/b/rss.xml|vulnres
-Assetnote|https://blog.assetnote.io/feed.xml|vulnres
-Blog - Atredis Partners|https://www.atredis.com/blog?format=rss|vulnres
-Blog on Shielder|https://www.shielder.it/blog/index.xml|vulnres
-Brendon Tiszka|https://little-canada.org/feeds/output/tiszka.rss|vulnres
-Cisco Talos Intelligence Group - Comprehensive Threat Intelligence|http://feeds.feedburner.com/feedburner/Talos|vulnres
-Connor McGarr|https://connormcgarr.github.io/feed.xml|vulnres
-DARKNAVY|https://www.darknavy.org/index.xml|vulnres
-DFSEC Research|https://blog.dfsec.com/feed.xml|vulnres
-Diary of a reverse-engineer|https://doar-e.github.io/feeds/rss.xml?_=|vulnres
-Doyensec's Blog|https://blog.doyensec.com/atom.xml|vulnres
-Elttam|https://little-canada.org/feeds/output/elttam.rss|vulnres
-Embrace The Red|https://embracethered.com/blog/index.xml|vulnres
-Exploits.forsale|https://little-canada.org/feeds/output/exploitsforsale.rss|vulnres
-GitHub Security Lab|https://github.blog/tag/github-security-lab/feed/|vulnres
-Google Security Research Advisories|https://little-canada.org/feeds/output/google-research-advisories.rss|vulnres
-Guido Vranken|https://guidovranken.com/feed/|vulnres
-Hacktus|https://hacktus.tech/rss.xml|vulnres
-Impalabs Blog|https://blog.impalabs.com/feed.xml|vulnres
-Intrigusâ€™ Security Lab|https://intrigus.org/feed.xml|vulnres
-Johan Carlsson|https://joaxcar.com/blog/feed/|vulnres
-Joseph Ravichandran|https://little-canada.org/feeds/output/jprx.rss?_123|vulnres
-Keen Security Lab (Tencent)|https://little-canada.org/feeds/output/tencent-keenlabs.rss|vulnres
-Matteo Malvica|https://www.matteomalvica.com/blog/index.xml|vulnres
-Meta - Red Team X - Advisories|https://little-canada.org/feeds/output/meta-redteam-advisories.rss|vulnres
-Meta Red Team X|https://rtx.meta.security/feed.xml|vulnres
-Microsoft Browser Vulnerability Research|https://microsoftedge.github.io/edgevr/feed.xml|vulnres
-Mozilla Attack & Defense|https://blog.mozilla.org/attack-and-defense/feed/|vulnres
-ODS Security Research - Nolen Johnson|https://oddsolutions.github.io/feed.xml|vulnres
-Oversecured|https://blog.oversecured.com/feed.xml|vulnres
-PS C:\Users\itm4n&gt; _|https://itm4n.github.io/feed.xml|vulnres
-Positive Technologies - learn and secure |http://feeds.feedburner.com/positiveTechnologiesResearchLab|vulnres
-Posts on Slonser Notes|https://blog.slonser.info/posts/index.xml|vulnres
-Project Zero|http://googleprojectzero.blogspot.com/feeds/posts/default|vulnres
-"Publications Hacking Lab"|https://kaist-hacking.github.io/publication/index.xml|vulnres
-Realmode Labs - Medium|https://medium.com/feed/realmodelabs|vulnres
-Research â€“ Codean Labs|https://codeanlabs.com/blog/category/research/feed/|vulnres
-Rhino Security Labs|https://rhinosecuritylabs.com/feed/|vulnres
-Sam Curry|https://samcurry.net/api/feed.rss|vulnres
-Sean Heelan's Blog|https://sean.heelan.io/feed/?_|vulnres
-Secfault Security GmbH|https://secfault-security.com/feed.rss|vulnres
-Stories by Renwa on Medium|https://medium.com/@renwa/feed|vulnres
-Stratum Security Blog|https://blog.stratumsecurity.com/rss/|vulnres
-"Synacktiv Publications"|https://little-canada.org/feeds/output/synacktiv-publications.rss?_=123|vulnres
-Talos - Vulnerability Reports|http://little-canada.org/feeds/output/talos-reports.rss|vulnres
-Taszk.io labs|https://labs.taszk.io/blog/index.xml|vulnres
-Teddy Katzâ€™s Blog|https://blog.teddykatz.com/feed.xml|vulnres
-Trenchant|http://little-canada.org/feeds/output/trenchant.rss|vulnres
-Windows Internals Blog|https://windows-internals.com/feed/|vulnres
-Zero Day Initiative - Blog|https://www.zerodayinitiative.com/blog?format=rss|vulnres
-a place of anatomical precision|https://ysanatomic.github.io/feed.xml|vulnres
-bugs.xdavidhu.me|https://bugs.xdavidhu.me/feed.xml|vulnres
-jub0bs.com|https://jub0bs.com/posts/index.xml|vulnres
-kylebot's Blog|https://blog.kylebot.net/atom.xml|vulnres
-research.securitum.com|https://research.securitum.com/feed/|vulnres
-secret club|https://secret.club/feed.xml|vulnres
-spaceraccoon.dev|https://spaceraccoon.dev/feed/|vulnres
-watchTowr Labs - Blog|https://labs.watchtowr.com/rss/|vulnres
+Black Hat Ethical Hacking|https://www.blackhatethicalhacking.com/feed/|general_security
+Engadget|https://www.engadget.com/rss.xml|general_security

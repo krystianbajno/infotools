@@ -19,7 +19,10 @@
       "enabled": true
     },
     "crtsh": {
-      "enabled": true
+      "enabled": false
+    },
+    "cve": {
+      "enabled": false
     }
   }
 }

@@ -318,7 +318,7 @@ def search_rss_feeds(search_term: str, quiet: bool = False, reload: bool = False
                         pass
     
     # Search articles in database (focus on article content, not feed names)
-    articles = db.search_articles(search_term, limit=1000)
+    articles = db.search_articles(search_term)
     
     # Format results to match expected structure
     formatted_articles = []

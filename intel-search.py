@@ -49,7 +49,7 @@ Examples:
     parser.add_argument(
         "--sources", "-s",
         nargs='+',
-        choices=['malpedia', 'otx', 'rss', 'threatfox', 'shodan', 'ipgeo', 'crtsh'],
+        choices=['malpedia', 'otx', 'rss', 'threatfox', 'shodan', 'ipgeo', 'crtsh', 'cve'],
         help="Specific sources to search (default: all available)"
     )
     
@@ -291,31 +291,24 @@ Examples:
                         'domain_searched': source_result.get('domain_searched'),
                         'errors': source_result.get('errors', [])
                     }
+                elif source_name == 'cve':
+                    unified_results['cve'] = {
+                        'cves': source_result['results'],
+                        'total_found': source_result.get('count', 0),
+                        'aliases_found': source_result.get('aliases_found', []),
+                        'search_term': source_result.get('search_term', ''),
+                        'error': source_result.get('error', None)
+                    }
 
 
         if args.json:
             # JSON-only output: print clean JSON and exit
-            # Calculate total results safely
-            total_results = 0
-            for source_data in unified_results.values():
-                if isinstance(source_data, dict):
-                    # Try different result keys and ensure we get a valid list
-                    result_list = None
-                    for key in ['subdomains', 'results', 'articles', 'iocs', 'pulses']:
-                        potential_list = source_data.get(key)
-                        if potential_list is not None and isinstance(potential_list, list):
-                            result_list = potential_list
-                            break
-                    
-                    if result_list is not None:
-                        total_results += len(result_list)
-            
             output_data = {
                 'search_term': args.search_term,
                 'sources_searched': results.get('sources_searched', []),
                 'results': unified_results,
                 'metadata': {
-                    'total_results': total_results,
+                    'total_results': sum(len(source_data.get('subdomains', source_data.get('results', source_data.get('articles', source_data.get('iocs', source_data.get('pulses', [])))))) for source_data in unified_results.values()),
                     'sources_with_results': list(unified_results.keys())
                 }
             }
