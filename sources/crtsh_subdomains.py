@@ -25,9 +25,8 @@ class CrtshSubdomainCollector:
     Based on Subduer's approach but without browser automation
     """
     
-    def __init__(self, timeout: int = 30, retries: int = 3):
+    def __init__(self, timeout: int = 30):
         self.timeout = timeout
-        self.retries = retries
         self.base_url = "https://crt.sh"
         self.session = None
         
@@ -103,42 +102,38 @@ class CrtshSubdomainCollector:
         """Collect subdomains from HTML search page"""
         subdomains = set()
         
-        for attempt in range(self.retries):
-            try:
-                logger.info(f"HTML search attempt {attempt + 1}/{self.retries} for domain: {domain}")
+        try:
+            logger.info(f"HTML search for domain: {domain}")
+            
+            # Search for subdomains using wildcard
+            search_url = f"{self.base_url}/?q=%.{domain}"
+            
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Accept-Encoding': 'gzip, deflate',
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': '1'
+            }
+            
+            response = await self.session.get(search_url, headers=headers)
+            response.raise_for_status()
+            
+            # Parse HTML content
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Extract subdomains from table
+            page_subdomains = self._extract_subdomains_from_html(soup, domain)
+            subdomains.update(page_subdomains)
+            
+            if page_subdomains:
+                logger.info(f"Found {len(page_subdomains)} subdomains in HTML")
+            else:
+                logger.warning(f"No subdomains found in HTML")
                 
-                # Search for subdomains using wildcard
-                search_url = f"{self.base_url}/?q=%.{domain}"
-                
-                headers = {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                    'Accept-Language': 'en-US,en;q=0.5',
-                    'Accept-Encoding': 'gzip, deflate',
-                    'Connection': 'keep-alive',
-                    'Upgrade-Insecure-Requests': '1'
-                }
-                
-                response = await self.session.get(search_url, headers=headers)
-                response.raise_for_status()
-                
-                # Parse HTML content
-                soup = BeautifulSoup(response.text, 'html.parser')
-                
-                # Extract subdomains from table
-                page_subdomains = self._extract_subdomains_from_html(soup, domain)
-                subdomains.update(page_subdomains)
-                
-                if page_subdomains:
-                    logger.info(f"Found {len(page_subdomains)} subdomains in HTML on attempt {attempt + 1}")
-                    break
-                else:
-                    logger.warning(f"No subdomains found in HTML on attempt {attempt + 1}")
-                    
-            except Exception as e:
-                logger.error(f"HTML search attempt {attempt + 1} failed: {str(e)}")
-                if attempt < self.retries - 1:
-                    await asyncio.sleep(2 ** attempt)  # Exponential backoff
+        except Exception as e:
+            logger.error(f"HTML search failed: {str(e)}")
         
         return subdomains
     

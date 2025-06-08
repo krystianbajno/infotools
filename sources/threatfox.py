@@ -96,7 +96,7 @@ class ThreatFoxClient:
                 data = json.loads(content)
             except json.JSONDecodeError as e:
                 print(f"JSON decode error: {e}")
-                print(f"Content preview: {content[:500]}")
+                print(f"Content preview: {content}")
                 return False
             
             # Save to cache

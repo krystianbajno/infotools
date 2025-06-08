@@ -51,8 +51,7 @@ def format_otx_result(pulse: Dict[str, Any], index: int, verbose: bool = False) 
             ioc_type = indicator.get('type', 'unknown')
             ioc_value = indicator.get('indicator', 'N/A')
             output.append(f"    - {ioc_type}: {ioc_value}")
-        if len(indicators) > 5:
-            output.append(f"    ... and {len(indicators) - 5} more indicators")
+
     elif pulse.get('indicators'):
         output.append(f"  Indicators: {len(pulse['indicators'])} available")
     
@@ -121,7 +120,7 @@ def format_stix_result(stix_obj: Dict[str, Any], index: int, verbose: bool = Fal
     
     elif obj_type == 'attack-pattern':
         if obj.get('description'):
-            desc = obj['description'][:200] + "..." if len(obj.get('description', '')) > 200 else obj.get('description', '')
+            desc = obj['description']
             output.append(f"  Description: {desc}")
         if obj.get('kill_chain_phases'):
             phases = [f"{phase.get('kill_chain_name', 'unknown')}: {phase.get('phase_name', 'unknown')}" 
@@ -130,11 +129,9 @@ def format_stix_result(stix_obj: Dict[str, Any], index: int, verbose: bool = Fal
     
     if verbose and obj.get('external_references'):
         output.append("  External References:")
-        for ref in obj['external_references'][:3]:  # Show first 3 refs
+        for ref in obj['external_references']:  # Show first 3 refs
             if ref.get('url'):
                 output.append(f"    - {ref.get('source_name', 'Unknown')}: {ref['url']}")
-        if len(obj['external_references']) > 3:
-            output.append(f"    ... and {len(obj['external_references']) - 3} more references")
     
     return "\n".join(output)
 
@@ -199,28 +196,16 @@ def format_shodan_internetdb_result(ip_data: Dict[str, Any], index: int, verbose
         output.append(f"  🌐 Resolved from domain: {ip_data['resolved_from_domain']}")
     
     if ports:
-        if verbose or len(ports) <= 10:
             output.append(f"  Open Ports: {', '.join(map(str, ports))}")
-        else:
-            output.append(f"  Open Ports: {', '.join(map(str, ports[:10]))} (+{len(ports) - 10} more)")
     
     if vulns:
-        if verbose or len(vulns) <= 5:
             output.append(f"  Vulnerabilities: {', '.join(vulns)}")
-        else:
-            output.append(f"  Vulnerabilities: {', '.join(vulns[:5])} (+{len(vulns) - 5} more)")
     
     if hostnames:
-        if verbose or len(hostnames) <= 3:
             output.append(f"  Hostnames: {', '.join(hostnames)}")
-        else:
-            output.append(f"  Hostnames: {', '.join(hostnames[:3])} (+{len(hostnames) - 3} more)")
     
     if tags:
-        if verbose or len(tags) <= 5:
             output.append(f"  Tags: {', '.join(tags)}")
-        else:
-            output.append(f"  Tags: {', '.join(tags[:5])} (+{len(tags) - 5} more)")
     
     if verbose and cpes:
         output.append(f"  CPEs ({len(cpes)}):")
@@ -256,15 +241,16 @@ def format_crtsh_subdomain_result(subdomain_data: Dict[str, Any], index: int, ve
     if verbose and subdomain_data.get('subject_alternative_names'):
         san_list = subdomain_data['subject_alternative_names']
         output.append(f"  Subject Alternative Names ({len(san_list)}):")
-        for san in san_list[:5]:  # Show first 5 SANs
+        for san in san_list:  # Show first 5 SANs
             output.append(f"    - {san}")
-        if len(san_list) > 5:
-            output.append(f"    ... and {len(san_list) - 5} more SANs")
     elif subdomain_data.get('subject_alternative_names'):
         san_count = len(subdomain_data['subject_alternative_names'])
         output.append(f"  Subject Alternative Names: {san_count} available")
     
     return "\n".join(output)
+
+
+
 
 def format_ip_geolocation_result(geo_data: Dict[str, Any], index: int, verbose: bool = False) -> str:
     """Format an IP geolocation result for display"""
@@ -356,53 +342,65 @@ def print_unified_results(results: Dict[str, Any], verbose: bool = False) -> Non
     if 'malpedia' in results and results['malpedia']:
         for ref in results['malpedia']:
             date_str = ref.get('year', ref.get('date', '0000'))
+            # Ensure we have a valid string for sorting
+            date_for_sort = str(date_str) if date_str is not None else '0000'
             all_results.append({
                 'source': 'malpedia',
                 'data': ref,
                 'date': date_str,
-                'date_for_sort': date_str
+                'date_for_sort': date_for_sort
             })
     
     if 'otx' in results and results['otx'].get('pulses'):
         for pulse in results['otx']['pulses']:
             date_str = pulse.get('created', '')
+            # Ensure we have a valid string for sorting
+            date_for_sort = str(date_str) if date_str is not None else '0000-01-01T00:00:00'
             all_results.append({
                 'source': 'otx',
                 'data': pulse,
                 'date': date_str,
-                'date_for_sort': date_str
+                'date_for_sort': date_for_sort
             })
     
     if 'rss' in results and results['rss'].get('articles'):
         for article in results['rss']['articles']:
             date_str = article.get('published', '')
+            # Ensure we have a valid string for sorting
+            date_for_sort = str(date_str) if date_str is not None else '0000-01-01T00:00:00'
             all_results.append({
                 'source': 'rss',
                 'data': article,
                 'date': date_str,
-                'date_for_sort': date_str
+                'date_for_sort': date_for_sort
             })
+    
+
     
     if 'stix' in results and results['stix'].get('objects'):
         for stix_obj in results['stix']['objects']:
             # Handle both collection results and direct objects
             obj = stix_obj.get('object', stix_obj)
             date_str = obj.get('created', obj.get('modified', ''))
+            # Ensure we have a valid string for sorting
+            date_for_sort = str(date_str) if date_str is not None else '0000-01-01T00:00:00'
             all_results.append({
                 'source': 'stix',
                 'data': stix_obj,
                 'date': date_str,
-                'date_for_sort': date_str
+                'date_for_sort': date_for_sort
             })
     
     if 'threatfox' in results and results['threatfox'].get('iocs'):
         for ioc in results['threatfox']['iocs']:
             date_str = ioc.get('first_seen_utc', '')
+            # Ensure we have a valid string for sorting
+            date_for_sort = str(date_str) if date_str is not None else '0000-01-01T00:00:00'
             all_results.append({
                 'source': 'threatfox',
                 'data': ioc,
                 'date': date_str,
-                'date_for_sort': date_str
+                'date_for_sort': date_for_sort
             })
     
     if 'shodan_internetdb' in results and results['shodan_internetdb'].get('results'):
@@ -430,12 +428,16 @@ def print_unified_results(results: Dict[str, Any], verbose: bool = False) -> Non
     if 'crtsh_subdomains' in results and results['crtsh_subdomains'].get('subdomains'):
         for subdomain_data in results['crtsh_subdomains']['subdomains']:
             # Use certificate dates if available, otherwise current date
-            date_str = subdomain_data.get('not_before', datetime.now().isoformat())
+            date_str = subdomain_data.get('not_before')
+            if date_str is None:
+                date_str = datetime.now().isoformat()
+            # Ensure we have a valid string for sorting
+            date_for_sort = str(date_str) if date_str is not None else datetime.now().isoformat()
             all_results.append({
                 'source': 'crtsh_subdomains',
                 'data': subdomain_data,
                 'date': date_str,
-                'date_for_sort': date_str
+                'date_for_sort': date_for_sort
             })
     
     # Sort all results by date (newest first)
@@ -459,6 +461,7 @@ def print_unified_results(results: Dict[str, Any], verbose: bool = False) -> Non
             formatted = format_otx_result(data, i, verbose)
         elif source == 'rss':
             formatted = format_rss_result(data, i, verbose)
+
         elif source == 'stix':
             formatted = format_stix_result(data, i, verbose)
         elif source == 'threatfox':
@@ -492,6 +495,8 @@ def print_source_summary(results: Dict[str, Any]) -> None:
         count = len(results['rss']['articles'])
         print(f"  RSS: {count} articles")
         total += count
+    
+
     
     if 'stix' in results and results['stix'].get('objects'):
         count = len(results['stix']['objects'])

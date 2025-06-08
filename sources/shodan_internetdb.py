@@ -272,7 +272,7 @@ def search_shodan_internetdb(search_term: str, quiet: bool = False, **kwargs) ->
         return results
     
     # Limit the number of IPs to query (max 10)
-    ips_to_query = ips_to_query[:10]
+    ips_to_query = ips_to_query
     results["ips_found"] = len(ips_to_query)
     
     if not quiet:
@@ -341,22 +341,18 @@ def get_shodan_internetdb_summary(ip_data: Dict[str, Any]) -> str:
     summary_parts = [f"IP: {ip}"]
     
     if ports:
-        summary_parts.append(f"Ports: {', '.join(map(str, ports[:10]))}")
-        if len(ports) > 10:
-            summary_parts.append(f"(+{len(ports) - 10} more)")
+        summary_parts.append(f"Ports: {', '.join(map(str, ports))}")
     
     if vulns:
         summary_parts.append(f"Vulnerabilities: {len(vulns)} CVEs")
     
     if hostnames:
-        summary_parts.append(f"Hostnames: {', '.join(hostnames[:3])}")
+        summary_parts.append(f"Hostnames: {', '.join(hostnames)}")
         if len(hostnames) > 3:
             summary_parts.append(f"(+{len(hostnames) - 3} more)")
     
     if tags:
-        summary_parts.append(f"Tags: {', '.join(tags[:5])}")
-        if len(tags) > 5:
-            summary_parts.append(f"(+{len(tags) - 5} more)")
+        summary_parts.append(f"Tags: {', '.join(tags)}")
     
     return " | ".join(summary_parts)
 

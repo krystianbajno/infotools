@@ -10,8 +10,12 @@ import hashlib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 from pathlib import Path
-import pickle
+import sys
 import os
+
+# Add parent directory to path for imports
+sys.path.append(str(Path(__file__).parent.parent))
+from models.rss_database import RSSDatabase
 
 def load_rss_feeds() -> List[Dict[str, str]]:
     """Load RSS feeds from rss.txt configuration file"""
@@ -53,98 +57,13 @@ def load_rss_feeds() -> List[Dict[str, str]]:
 # Load RSS feeds from configuration file
 RSS_FEEDS = load_rss_feeds()
 
-# RSS cache configuration
-RSS_CACHE_DIR = Path(__file__).parent.parent / 'cache' / 'rss'
-RSS_CACHE_DURATION = 3600  # 1 hour in seconds
+# RSS database configuration
+RSS_DB_PATH = "data/rss_intelligence.db"
+FEED_UPDATE_INTERVAL = 3600  # 1 hour in seconds
 
-def ensure_cache_dir():
-    """Ensure cache directory exists"""
-    RSS_CACHE_DIR.mkdir(parents=True, exist_ok=True)
-
-def get_cache_file_path(feed_url: str) -> Path:
-    """Get cache file path for a feed URL"""
-    feed_hash = hashlib.sha256(feed_url.encode()).hexdigest()
-    return RSS_CACHE_DIR / f"feed_{feed_hash}.pkl"
-
-def is_cache_fresh(cache_file: Path) -> bool:
-    """Check if cache file is fresh (within cache duration)"""
-    if not cache_file.exists():
-        return False
-    
-    cache_age = time.time() - cache_file.stat().st_mtime
-    return cache_age < RSS_CACHE_DURATION
-
-def save_feed_to_cache(feed_url: str, parsed_feed: Any) -> None:
-    """Save parsed feed to cache"""
-    try:
-        ensure_cache_dir()
-        cache_file = get_cache_file_path(feed_url)
-        
-        cache_data = {
-            'feed_url': feed_url,
-            'parsed_feed': parsed_feed,
-            'cached_at': time.time()
-        }
-        
-        with open(cache_file, 'wb') as f:
-            pickle.dump(cache_data, f)
-    except Exception as e:
-        # Cache failures shouldn't break the search
-        pass
-
-def load_feed_from_cache(feed_url: str) -> Optional[Any]:
-    """Load parsed feed from cache if available and fresh"""
-    try:
-        cache_file = get_cache_file_path(feed_url)
-        
-        if not is_cache_fresh(cache_file):
-            return None
-        
-        with open(cache_file, 'rb') as f:
-            cache_data = pickle.load(f)
-        
-        return cache_data.get('parsed_feed')
-    except Exception as e:
-        # Cache failures shouldn't break the search
-        return None
-
-def clear_rss_cache() -> None:
-    """Clear all RSS cache files"""
-    try:
-        if RSS_CACHE_DIR.exists():
-            for cache_file in RSS_CACHE_DIR.glob("feed_*.pkl"):
-                cache_file.unlink()
-    except Exception as e:
-        print(f"Warning: Could not clear RSS cache: {e}")
-
-def get_cache_stats() -> Dict[str, Any]:
-    """Get RSS cache statistics"""
-    stats = {
-        "total_cached_feeds": 0,
-        "cache_size_bytes": 0,
-        "oldest_cache": None,
-        "newest_cache": None
-    }
-    
-    try:
-        if not RSS_CACHE_DIR.exists():
-            return stats
-        
-        cache_files = list(RSS_CACHE_DIR.glob("feed_*.pkl"))
-        stats["total_cached_feeds"] = len(cache_files)
-        
-        if cache_files:
-            total_size = sum(f.stat().st_size for f in cache_files)
-            stats["cache_size_bytes"] = total_size
-            
-            mtimes = [f.stat().st_mtime for f in cache_files]
-            stats["oldest_cache"] = datetime.fromtimestamp(min(mtimes)).isoformat()
-            stats["newest_cache"] = datetime.fromtimestamp(max(mtimes)).isoformat()
-    
-    except Exception as e:
-        pass
-    
-    return stats
+def get_rss_database() -> RSSDatabase:
+    """Get RSS database instance"""
+    return RSSDatabase(RSS_DB_PATH)
 
 def get_content_hash(title: str, content: str, link: str) -> str:
     """Generate a hash for content deduplication"""
@@ -165,15 +84,8 @@ def clean_html_content(content: str) -> str:
     
     return content.strip()
 
-def parse_feed_with_encoding_fallback(feed_url: str, use_cache: bool = True) -> Any:
+def parse_feed_with_encoding_fallback(feed_url: str) -> Any:
     """Parse RSS feed with encoding fallback to handle character encoding issues"""
-    
-    # Try to load from cache first
-    if use_cache:
-        cached_feed = load_feed_from_cache(feed_url)
-        if cached_feed is not None:
-            return cached_feed
-    
     try:
         # First try: Let feedparser handle encoding automatically
         parsed_feed = feedparser.parse(feed_url)
@@ -198,79 +110,72 @@ def parse_feed_with_encoding_fallback(feed_url: str, use_cache: bool = True) -> 
             try:
                 content_str = content.decode('utf-8')
             except UnicodeDecodeError:
-                # Fallback to latin-1 and then convert to UTF-8
+                # Try latin-1 if UTF-8 fails
                 try:
                     content_str = content.decode('latin-1')
                 except UnicodeDecodeError:
-                    # Last resort: use errors='replace'
-                    content_str = content.decode('utf-8', errors='replace')
+                    # Last resort: ignore errors
+                    content_str = content.decode('utf-8', errors='ignore')
             
-            # Parse the cleaned content
+            # Parse the corrected content
             parsed_feed = feedparser.parse(content_str)
-        
-        # Save successful parse to cache
-        if use_cache and parsed_feed and hasattr(parsed_feed, 'entries'):
-            save_feed_to_cache(feed_url, parsed_feed)
         
         return parsed_feed
         
     except Exception as e:
         # Return a minimal feed object with error info
-        return type('obj', (object,), {
+        return feedparser.FeedParserDict({
             'bozo': True,
             'bozo_exception': e,
             'entries': []
-        })()
+        })
 
-def search_single_feed(feed_info: Dict[str, str], search_term_lower: str, since_date: datetime, reload: bool = False) -> Dict[str, Any]:
-    """
-    Search a single RSS feed for articles containing the search term
+def is_feed_update_needed(db: RSSDatabase, feed_id: int) -> bool:
+    """Check if a feed needs to be updated based on last update time"""
+    feeds = db.get_feeds()
+    for feed in feeds:
+        if feed['id'] == feed_id:
+            if not feed['last_updated']:
+                return True
+            
+            try:
+                # Parse the timestamp from database (SQLite format)
+                last_updated_str = feed['last_updated']
+                if 'T' in last_updated_str:
+                    # ISO format with timezone
+                    last_updated = datetime.fromisoformat(last_updated_str.replace('Z', '+00:00'))
+                else:
+                    # SQLite CURRENT_TIMESTAMP format (UTC)
+                    last_updated = datetime.strptime(last_updated_str, '%Y-%m-%d %H:%M:%S')
+                
+                time_since_update = datetime.utcnow() - last_updated
+                return time_since_update.total_seconds() > FEED_UPDATE_INTERVAL
+            except (ValueError, TypeError) as e:
+                # If we can't parse the date, assume it needs updating
+                return True
     
-    Args:
-        feed_info: Feed information dictionary
-        search_term_lower: Lowercase search term
-        since_date: Cutoff date for articles
-        
-    Returns:
-        Dictionary with feed results
-    """
-    feed_name = feed_info["name"]
-    feed_url = feed_info["url"]
-    category = feed_info["category"]
-    
-    feed_result = {
-        "feed_name": feed_name,
-        "feed_category": category,
-        "success": False,
-        "articles": [],
-        "error": None
-    }
-    
+    return True
+
+def update_feed_articles(db: RSSDatabase, feed_info: Dict[str, str], feed_id: int) -> None:
+    """Update articles for a specific feed by fetching latest content"""
     try:
-        # Parse RSS feed with encoding handling (skip cache if reload is requested)
-        parsed_feed = parse_feed_with_encoding_fallback(feed_url, use_cache=not reload)
+        parsed_feed = parse_feed_with_encoding_fallback(feed_info["url"])
         
         if hasattr(parsed_feed, 'bozo') and parsed_feed.bozo:
-            # Only treat as error if there are no entries and it's a significant parsing error
             if not parsed_feed.entries and parsed_feed.bozo_exception:
                 error_msg = str(parsed_feed.bozo_exception)
-                # Skip encoding-related errors that we've handled
-                if 'encoding' not in error_msg.lower() or 'us-ascii' not in error_msg.lower():
-                    feed_result["error"] = {
-                        "feed": feed_name,
-                        "error": "Feed parsing error",
-                        "details": error_msg
-                    }
-                    return feed_result
+                if 'encoding' not in error_msg.lower():
+                    db.update_feed_status(feed_id, error_msg)
+                    return
         
-        feed_result["success"] = True
-        
-        # Search through entries
+        # Process each entry and add to database
+        articles_added = 0
         for entry in parsed_feed.entries:
             title = getattr(entry, 'title', '')
             summary = getattr(entry, 'summary', '')
             content = getattr(entry, 'content', '')
             link = getattr(entry, 'link', '')
+            author = getattr(entry, 'author', '')
             
             # Extract text content
             if isinstance(content, list) and content:
@@ -278,135 +183,167 @@ def search_single_feed(feed_info: Dict[str, str], search_term_lower: str, since_
             else:
                 content_text = str(content) if content else ''
             
-            # Combine all text for searching
-            full_text = f"{title} {summary} {content_text}".lower()
+            # Parse publication date
+            pub_date = None
+            if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                pub_date = datetime(*entry.published_parsed[:6])
+            elif hasattr(entry, 'updated_parsed') and entry.updated_parsed:
+                pub_date = datetime(*entry.updated_parsed[:6])
             
-            # Check if search term is in the content
-            if search_term_lower in full_text:
-                # Parse publication date
-                pub_date = None
-                if hasattr(entry, 'published_parsed') and entry.published_parsed:
-                    pub_date = datetime(*entry.published_parsed[:6])
-                elif hasattr(entry, 'updated_parsed') and entry.updated_parsed:
-                    pub_date = datetime(*entry.updated_parsed[:6])
-                
-                # Don't skip based on date - include all matching articles
-                
-                # Clean and truncate content
-                clean_summary = clean_html_content(summary)
-                clean_content = clean_html_content(content_text)
-                
-                article = {
-                    "feed_name": feed_name,
-                    "feed_category": category,
-                    "title": title,
-                    "link": link,
-                    "summary": clean_summary[:500] + "..." if len(clean_summary) > 500 else clean_summary,
-                    "content": clean_content[:1000] + "..." if len(clean_content) > 1000 else clean_content,
-                    "published": pub_date.isoformat() if pub_date else None,
-                    "content_hash": get_content_hash(title, clean_content, link)
-                }
-                
-                feed_result["articles"].append(article)
+            # Clean content
+            clean_summary = clean_html_content(summary)
+            clean_content = clean_html_content(content_text)
+            
+            # Create article object
+            article = {
+                'title': title,
+                'url': link,
+                'description': clean_summary,
+                'content': clean_content,
+                'published_date': pub_date,
+                'author': author,
+                'tags': []  # Could extract from entry if available
+            }
+            
+            # Add to database (will handle deduplication)
+            if db.add_article(feed_id, article):
+                articles_added += 1
+        
+        # Update feed status
+        db.update_feed_status(feed_id)
         
     except Exception as e:
-        feed_result["error"] = {
-            "feed": feed_name,
-            "error": "Request failed",
-            "details": str(e)
-        }
-    
-    return feed_result
+        db.update_feed_status(feed_id, str(e))
 
 def search_rss_feeds(search_term: str, quiet: bool = False, reload: bool = False, **kwargs) -> Dict[str, Any]:
     """
-    Search RSS feeds for articles containing the search term (concurrent processing)
+    Search RSS feeds using SQLite database with intelligent caching
     
     Args:
-        search_term: Term to search for
-        quiet: Whether to suppress print statements
-        reload: Whether to reload cached feeds
+        search_term: Search term to look for
+        quiet: If True, suppress progress output  
+        reload: Force reload feeds from source
         
     Returns:
         Dictionary with search results
     """
-    # Clear cache if reload is requested
-    if reload:
-        if not quiet:
-            print("🔄 Clearing RSS cache and reloading feeds...")
-        clear_rss_cache()
-    
-    # Reload feeds in case the configuration file has been updated
-    global RSS_FEEDS
-    RSS_FEEDS = load_rss_feeds()
+    db = get_rss_database()
     
     if not RSS_FEEDS:
         return {
+            "source": "rss",
             "search_term": search_term,
-            "feeds_searched": 0,
-            "articles_found": 0,
-            "articles": [],
-            "errors": [{"feed": "Configuration", "error": "No RSS feeds loaded", "details": "Check rss.txt file"}]
+            "total_results": 0,
+            "results": [],
+            "errors": ["No RSS feeds configured in rss.txt"]
         }
     
-    search_term_lower = search_term.lower()
-    since_date = datetime.now() - timedelta(days=365)  # Look back one year
+    # Initialize database with feeds from config file if needed
+    existing_feeds = {f['url']: f for f in db.get_feeds()}
     
-    results = {
+    if not existing_feeds:
+        feeds_added = db.load_feeds_from_file("rss.txt")
+    
+    # Get all feeds from database
+    all_feeds = db.get_feeds()
+    
+    # Only update feeds if explicitly requested or if they're stale
+    if reload:
+        # Force update all feeds when reload flag is used
+        feeds_to_update = []
+        if not quiet:
+            print(f"🔄 Reload requested - updating all {len(all_feeds)} RSS feeds...")
+        
+        for feed in all_feeds:
+            # Find corresponding config entry
+            feed_config = None
+            for config_feed in RSS_FEEDS:
+                if config_feed['url'] == feed['url']:
+                    feed_config = config_feed
+                    break
+            
+            if feed_config:
+                feeds_to_update.append((feed, feed_config))
+        
+        # Update feeds that need refreshing
+        if feeds_to_update:
+            max_workers = min(len(feeds_to_update), 10)
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                future_to_feed = {
+                    executor.submit(update_feed_articles, db, feed_config, feed['id']): (feed, feed_config)
+                    for feed, feed_config in feeds_to_update
+                }
+                
+                for future in as_completed(future_to_feed):
+                    feed, feed_config = future_to_feed[future]
+                    try:
+                        future.result()
+                        if not quiet:
+                            print(f"  ✓ Updated {feed['name']}")
+                    except Exception as e:
+                        if not quiet:
+                            print(f"  ✗ Failed to update {feed['name']}: {e}")
+    else:
+        # Check which feeds need updating based on age (only if not explicitly skipping updates)
+        feeds_to_update = []
+        stale_feeds = 0
+        
+        for feed in all_feeds:
+            if is_feed_update_needed(db, feed['id']):
+                stale_feeds += 1
+                # Find corresponding config entry
+                feed_config = None
+                for config_feed in RSS_FEEDS:
+                    if config_feed['url'] == feed['url']:
+                        feed_config = config_feed
+                        break
+                
+                if feed_config:
+                    feeds_to_update.append((feed, feed_config))
+        
+        # Update only stale feeds (silently if quiet=True)
+        if feeds_to_update:
+            max_workers = min(len(feeds_to_update), 5)  # Reduced workers for background updates
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                future_to_feed = {
+                    executor.submit(update_feed_articles, db, feed_config, feed['id']): (feed, feed_config)
+                    for feed, feed_config in feeds_to_update
+                }
+                
+                for future in as_completed(future_to_feed):
+                    feed, feed_config = future_to_feed[future]
+                    try:
+                        future.result()
+                    except Exception as e:
+                        pass
+    
+    # Search articles in database (focus on article content, not feed names)
+    articles = db.search_articles(search_term, limit=1000)
+    
+    # Format results to match expected structure
+    formatted_articles = []
+    for article in articles:
+        formatted_article = {
+            "feed_name": article['feed_name'],
+            "feed_category": article['category'] or 'uncategorized',
+            "title": article['title'],
+            "link": article['url'],
+            "summary": article['description'],
+            "content": article['content'],
+            "published": article['published_date'],
+            "content_hash": get_content_hash(article['title'], article['content'], article['url'])
+        }
+        formatted_articles.append(formatted_article)
+    
+
+    
+    return {
+        "source": "rss",
         "search_term": search_term,
-        "feeds_searched": 0,
-        "articles_found": 0,
-        "articles": [],
+        "total_results": len(formatted_articles),
+        "results": formatted_articles,
         "errors": []
     }
-    
-    feeds_to_search = RSS_FEEDS
-    total_feeds = len(feeds_to_search)
-    
-    if not quiet:
-        print(f"Starting concurrent search of {total_feeds} RSS feeds...")
-    
-    # Thread-safe progress tracking
-    progress_lock = threading.Lock()
-    completed_feeds = 0
-    
-    def update_progress():
-        nonlocal completed_feeds
-        with progress_lock:
-            completed_feeds += 1
-            if not quiet:
-                print(f"Completed {completed_feeds}/{total_feeds} feeds", end='\r')
-    
-    # Use ThreadPoolExecutor for concurrent requests
-    with ThreadPoolExecutor(max_workers=20) as executor:
-        # Submit all feed search tasks
-        future_to_feed = {
-            executor.submit(search_single_feed, feed_info, search_term_lower, since_date, reload): feed_info
-            for feed_info in feeds_to_search
-        }
-        
-        # Collect results as they complete
-        for future in as_completed(future_to_feed):
-            feed_result = future.result()
-            # print(feed_result["feed_name"])
-            
-            update_progress()
-            
-            if feed_result["success"]:
-                results["feeds_searched"] += 1
-                results["articles"].extend(feed_result["articles"])
-                results["articles_found"] += len(feed_result["articles"])
-            
-            if feed_result["error"]:
-                results["errors"].append(feed_result["error"])
-    
-    if not quiet:
-        print()  # New line after progress
-    
-    # Sort articles by publication date (newest first)
-    results["articles"].sort(key=lambda x: x["published"] or "", reverse=True)
-    
-    return results
 
 def get_available_feeds() -> List[Dict[str, str]]:
     """Get list of available RSS feeds organized by category"""

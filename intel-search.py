@@ -9,12 +9,13 @@ from pathlib import Path
 # Add current directory to path for imports
 sys.path.append(str(Path(__file__).parent))
 
+from config import get_config
 from services.search_service import (
-    search_all_sources, 
     get_available_sources, 
     validate_source_requirements,
     AVAILABLE_SOURCES
 )
+from services.search_orchestrator import search_with_operators
 from sources.print_service import (
     print_unified_results, 
     print_source_summary, 
@@ -28,11 +29,14 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  %(prog)s "ransomware"                    # Search all sources
+  %(prog)s "ransomware"                    # Search all enabled sources
   %(prog)s "APT28" --sources malpedia otx  # Search specific sources
   %(prog)s "CVE-2024" --sources rss        # Search only RSS feeds
   %(prog)s --list-sources                  # Show available sources
   %(prog)s --check-requirements            # Check API key configuration
+  %(prog)s --list-config                   # Show source configuration
+  %(prog)s --disable-source rss            # Disable RSS source
+  %(prog)s --enable-source rss             # Enable RSS source
         """
     )
     
@@ -93,6 +97,25 @@ Examples:
         action="store_true",
         help="Check if source requirements (API keys) are configured"
     )
+    
+    # Configuration management options
+    parser.add_argument(
+        "--list-config",
+        action="store_true",
+        help="Show current source configuration (enabled/disabled)"
+    )
+    
+    parser.add_argument(
+        "--enable-source",
+        metavar="SOURCE",
+        help="Enable a source in configuration"
+    )
+    
+    parser.add_argument(
+        "--disable-source", 
+        metavar="SOURCE",
+        help="Disable a source in configuration"
+    )
 
     args = parser.parse_args()
 
@@ -130,24 +153,60 @@ Examples:
             print("  3. Add to infotools/.env: OTX_API_KEY=your_key_here")
         return
 
+    # Handle configuration management
+    if args.list_config:
+        config = get_config()
+        sources = get_available_sources()
+        print("Source Configuration:")
+        print("=" * 50)
+        for source_id, source_info in sources.items():
+            enabled = config.is_source_enabled(source_id)
+            status = "✅ ENABLED" if enabled else "❌ DISABLED"
+            api_status = " (requires API key)" if source_info['requires_api'] else ""
+            print(f"{source_id.upper()}: {status}")
+            print(f"  Name: {source_info['name']}{api_status}")
+            print(f"  Description: {source_info['description']}")
+            print()
+        print("Use --enable-source or --disable-source to change configuration")
+        return
+
+    if args.enable_source:
+        config = get_config()
+        source_name = args.enable_source.lower()
+        if source_name not in AVAILABLE_SOURCES:
+            print(f"❌ Unknown source: {source_name}")
+            print(f"Available sources: {', '.join(AVAILABLE_SOURCES.keys())}")
+            sys.exit(1)
+        
+        config.enable_source(source_name)
+        print(f"✅ Enabled source: {source_name.upper()}")
+        return
+
+    if args.disable_source:
+        config = get_config()
+        source_name = args.disable_source.lower()
+        if source_name not in AVAILABLE_SOURCES:
+            print(f"❌ Unknown source: {source_name}")
+            print(f"Available sources: {', '.join(AVAILABLE_SOURCES.keys())}")
+            sys.exit(1)
+        
+        config.disable_source(source_name)
+        print(f"❌ Disabled source: {source_name.upper()}")
+        return
+
     # Require search term for actual searches
     if not args.search_term:
-        parser.error("search_term is required unless using --list-sources or --check-requirements")
+        parser.error("search_term is required unless using --list-sources, --check-requirements, --list-config, --enable-source, or --disable-source")
 
     # Prepare search parameters
     search_params = {
         'reload': args.reload
     }
 
-    # Determine sources to search
-    sources_to_search = args.sources
-    if not sources_to_search:
-        # Check requirements and warn about missing API keys
+    # Check requirements and warn about missing API keys if not in JSON mode
+    if not args.json:
         issues = validate_source_requirements()
-        available_sources = get_available_sources()
-        sources_to_search = list(available_sources.keys())
-        
-        if issues and not args.json:
+        if issues:
             print("⚠️  Some sources may not work due to missing requirements:")
             for source, issue in issues.items():
                 print(f"  {source.upper()}: {issue}")
@@ -159,16 +218,15 @@ Examples:
         print(f"🎯 THREAT INTELLIGENCE SEARCH")
         print("=" * 70)
         print(f"📝 Query: {args.search_term}")
-        print(f"📚 Sources: {', '.join(AVAILABLE_SOURCES[s]['name'] for s in sources_to_search)}")
         if args.reload:
             print("🔄 Cache: Reloading all data")
         print("-" * 70)
 
     try:
-        # Perform the search
-        results = search_all_sources(
+        # Perform the search with logical operator support
+        results = search_with_operators(
             search_term=args.search_term,
-            sources=sources_to_search,
+            sources=args.sources,
             quiet=args.json,
             **search_params
         )
@@ -234,14 +292,30 @@ Examples:
                         'errors': source_result.get('errors', [])
                     }
 
+
         if args.json:
             # JSON-only output: print clean JSON and exit
+            # Calculate total results safely
+            total_results = 0
+            for source_data in unified_results.values():
+                if isinstance(source_data, dict):
+                    # Try different result keys and ensure we get a valid list
+                    result_list = None
+                    for key in ['subdomains', 'results', 'articles', 'iocs', 'pulses']:
+                        potential_list = source_data.get(key)
+                        if potential_list is not None and isinstance(potential_list, list):
+                            result_list = potential_list
+                            break
+                    
+                    if result_list is not None:
+                        total_results += len(result_list)
+            
             output_data = {
                 'search_term': args.search_term,
-                'sources_searched': sources_to_search,
+                'sources_searched': results.get('sources_searched', []),
                 'results': unified_results,
                 'metadata': {
-                    'total_results': sum(len(source_data.get('subdomains', source_data.get('results', source_data.get('articles', source_data.get('iocs', source_data.get('pulses', [])))))) for source_data in unified_results.values()),
+                    'total_results': total_results,
                     'sources_with_results': list(unified_results.keys())
                 }
             }

@@ -365,7 +365,7 @@ def search_ip_geolocation(search_term: str, quiet: bool = False, **kwargs) -> Di
         return results
     
     # Limit the number of IPs to process (max 10)
-    ips_to_query = ips_to_query[:10]
+    ips_to_query = ips_to_query
     results["ips_found"] = len(ips_to_query)
     
     if not quiet:

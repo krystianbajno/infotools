@@ -156,6 +156,8 @@ data/
 cache/
 .env
 
+*.db
+
 # Pyre type checker
 .pyre/
 

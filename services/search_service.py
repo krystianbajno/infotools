@@ -10,6 +10,8 @@ import threading
 # Add sources to path
 sys.path.append(str(Path(__file__).parent.parent))
 
+from config import get_config
+
 from sources.malpedia import collect_malpedia_data
 from sources.otx import collect_otx_data
 from sources.rss import search_rss_feeds
@@ -18,6 +20,7 @@ from sources.threatfox import search_threatfox
 from sources.shodan_internetdb import search_shodan_internetdb
 from sources.ip_geolocation import search_ip_geolocation
 from sources.crtsh_subdomains import search_crtsh_subdomains
+
 
 def load_env_file():
     """Load environment variables from .env file"""
@@ -110,9 +113,8 @@ def search_rss_service(search_term: str, quiet: bool = False, reload: bool = Fal
         return {
             'status': 'success',
             'source': 'rss',
-            'results': result.get('articles', []),
-            'count': result.get('articles_found', 0),
-            'feeds_searched': result.get('feeds_searched', 0),
+            'results': result.get('results', []),
+            'count': result.get('total_results', 0),
             'errors': result.get('errors', []),
             'error': None
         }
@@ -122,7 +124,6 @@ def search_rss_service(search_term: str, quiet: bool = False, reload: bool = Fal
             'source': 'rss',
             'results': [],
             'count': 0,
-            'feeds_searched': 0,
             'errors': [],
             'error': str(e)
         }
@@ -265,6 +266,8 @@ def search_crtsh_subdomains_service(search_term: str, quiet: bool = False, **kwa
             'error': str(e)
         }
 
+
+
 # Available sources mapping
 AVAILABLE_SOURCES = {
     'malpedia': {
@@ -314,7 +317,8 @@ AVAILABLE_SOURCES = {
         'description': 'Certificate transparency logs for subdomain discovery',
         'function': search_crtsh_subdomains_service,
         'requires_api': False
-    }
+    },
+
 }
 
 def search_single_source(source_name: str, search_term: str, **kwargs) -> Dict[str, Any]:
@@ -337,15 +341,34 @@ def search_all_sources(search_term: str, sources: List[str] = None, quiet: bool 
     
     Args:
         search_term: Term to search for
-        sources: List of source names to search (None for all)
+        sources: List of source names to search (None for all enabled sources)
         quiet: Whether to suppress progress messages
         **kwargs: Additional arguments passed to source functions
         
     Returns:
         Dictionary with results from all sources
     """
+    config = get_config()
+    
     if sources is None:
-        sources = list(AVAILABLE_SOURCES.keys())
+        # If no sources specified, use only enabled sources from config
+        enabled_sources = config.get_enabled_sources()
+        sources = [s for s in AVAILABLE_SOURCES.keys() if s in enabled_sources]
+        
+        if not quiet and len(enabled_sources) < len(AVAILABLE_SOURCES):
+            disabled_sources = set(AVAILABLE_SOURCES.keys()) - enabled_sources
+            if disabled_sources:
+                print(f"ℹ️  Some sources are disabled in config: {', '.join(sorted(disabled_sources))}")
+                print(f"   Use --sources to override or edit config.json to enable them")
+    else:
+        # Sources explicitly provided via --sources, show warnings for disabled ones
+        disabled_overrides = []
+        for source in sources:
+            if not config.is_source_enabled(source):
+                disabled_overrides.append(source)
+        
+        if disabled_overrides and not quiet:
+            print(f"⚠️  Overriding disabled sources: {', '.join(disabled_overrides)}")
     
     # Validate sources
     invalid_sources = [s for s in sources if s not in AVAILABLE_SOURCES]

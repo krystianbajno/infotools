@@ -21,6 +21,9 @@ def download_bibliography() -> str:
 
 def parse_bibliography_for_search(bib_file: str, search):
     references = []
+    # Parse search term for logical operators
+    search_query = parse_search_term(search)
+    
     with open(bib_file, "r", encoding="utf-8", errors="ignore") as f:
         bib_content = f.read()
     entries = bib_content.split("\n@")
@@ -29,7 +32,7 @@ def parse_bibliography_for_search(bib_file: str, search):
         if not entry:
             continue
 
-        if search.lower() in entry.lower():
+        if search_query.matches_text(entry):
             entry_data = {}
             title_match = re.search(r'title\s*=\s*{(.*?)}', entry, re.DOTALL)
             if title_match:

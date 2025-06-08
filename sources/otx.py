@@ -2,7 +2,7 @@ import requests
 
 def collect_otx_data(search_term: str, api_key: str = None, quiet: bool = False) -> dict:
     """
-    Collect intelligence data from AlienVault OTX for a specific APT group and a single search term (alias).
+    Collect intelligence data from AlienVault OTX for a specific search term.
     """
     
     if not api_key:
@@ -15,7 +15,7 @@ def collect_otx_data(search_term: str, api_key: str = None, quiet: bool = False)
     url = f"https://otx.alienvault.com/api/v1/search/pulses?q={search_term}&sort=-modified"
     try:
         if not quiet:
-            print("Collecting OTX data for alias: ", search_term)
+            print("Collecting OTX data for search: ", search_term)
 
         resp = requests.get(url, headers=headers, timeout=30)
 
@@ -39,7 +39,7 @@ def collect_otx_data(search_term: str, api_key: str = None, quiet: bool = False)
         pass
     
     if not quiet:
-        print("OTX: Pulses found for alias: ", search_term, " - ", len(pulses))
+        print("OTX: Pulses found for search: ", search_term, " - ", len(pulses))
 
     return {
         "search_term": search_term,

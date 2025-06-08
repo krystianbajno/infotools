@@ -405,10 +405,10 @@ def generate_otx_html(otx_results: Dict[str, Any]) -> str:
                         <span class="result-date">{created}</span>
                     </div>
                     <div class="result-title">{escape_html(name)}</div>
-                    <div class="result-content">{escape_html(description[:500])}{'...' if len(description) > 500 else ''}</div>
+                    <div class="result-content">{escape_html(description)}{'...' if len(description) > 500 else ''}</div>
                     <div class="result-meta">
                         <span class="meta-item"><span class="meta-label">Author:</span> {escape_html(author)}</span>
-                        {' '.join(f'<span class="badge badge-risk-low">{escape_html(tag)}</span>' for tag in tags[:5])}
+                        {' '.join(f'<span class="badge badge-risk-low">{escape_html(tag)}</span>' for tag in tags)}
                     </div>
                 </div>
         """
@@ -495,7 +495,7 @@ def generate_stix_html(stix_results: Dict[str, Any]) -> str:
                         <span class="result-date">{created}</span>
                     </div>
                     <div class="result-title">{escape_html(name)}</div>
-                    <div class="result-content">{escape_html(description[:500])}{'...' if len(description) > 500 else ''}</div>
+                    <div class="result-content">{escape_html(description)}{'...' if len(description) > 500 else ''}</div>
                     <div class="result-meta">
                         <span class="meta-item"><span class="meta-label">Type:</span> {escape_html(obj_type)}</span>
                         <span class="meta-item"><span class="meta-label">ID:</span> {escape_html(obj.get('id', 'Unknown'))}</span>
@@ -592,12 +592,12 @@ def generate_shodan_html(shodan_results: Dict[str, Any]) -> str:
                     <div class="result-title">{escape_html(ip)}</div>
                     {f'<div class="result-content"><strong>🌐 Resolved from domain:</strong> {escape_html(domain)}</div>' if domain else ''}
                     <div class="result-content">
-                        {f'<strong>Open Ports:</strong> {", ".join(map(str, ports[:10]))}{"..." if len(ports) > 10 else ""}<br>' if ports else ''}
-                        {f'<strong>Hostnames:</strong> {", ".join(hostnames[:3])}{"..." if len(hostnames) > 3 else ""}<br>' if hostnames else ''}
+                        {f'<strong>Open Ports:</strong> {", ".join(map(str, ports))}<br>' if ports else ''}
+                        {f'<strong>Hostnames:</strong> {", ".join(hostnames)}<br>' if hostnames else ''}
                         {f'<strong>Vulnerabilities:</strong> {len(vulns)} found<br>' if vulns else ''}
                     </div>
                     <div class="result-meta">
-                        {' '.join(f'<span class="badge badge-risk-medium">{escape_html(tag)}</span>' for tag in tags[:5])}
+                        {' '.join(f'<span class="badge badge-risk-medium">{escape_html(tag)}</span>' for tag in tags)}
                         {f'<span class="badge badge-risk-high">{len(vulns)} Vulns</span>' if vulns else ''}
                     </div>
                 </div>

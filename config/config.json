@@ -1,0 +1,25 @@
+{
+  "sources": {
+    "malpedia": {
+      "enabled": true
+    },
+    "otx": {
+      "enabled": true
+    },
+    "rss": {
+      "enabled": true
+    },
+    "threatfox": {
+      "enabled": true
+    },
+    "shodan": {
+      "enabled": true
+    },
+    "ipgeo": {
+      "enabled": true
+    },
+    "crtsh": {
+      "enabled": true
+    }
+  }
+}
